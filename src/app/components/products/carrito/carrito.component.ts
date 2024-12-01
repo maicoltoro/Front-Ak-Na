@@ -4,7 +4,7 @@ import { MenuItem } from 'primeng/api';
 import { Dias } from 'src/app/Interfaces/Dias';
 import { Factura, Product, TipoIdentificacion } from 'src/app/Interfaces/Product';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
@@ -26,7 +26,7 @@ export class CarritoComponent {
   valorEnvio: number = 132000
   constructor(
     private fb: FormBuilder,
-    private endPoint: EndpointService
+    private endPoint: EndpointService,
   ) {
     this.products = history.state.listProduct;
   }
@@ -120,7 +120,14 @@ export class CarritoComponent {
         valorCompra : this.ValorTotal + this.valorEnvio
       }
       this.endPoint.postServices('Carrito',obj).subscribe((data)  =>{
-        console.log(data)
+        if(data.status == 200){
+          Swal.fire({
+            title: "Good job!",
+            text: "You clicked the button!",
+            icon: "success"
+          });
+          localStorage.removeItem('product')
+        }
       })
     }
   }
