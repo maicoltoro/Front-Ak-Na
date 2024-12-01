@@ -1,0 +1,30 @@
+<div class="listaProductos">
+  <div *ngFor="let product of listProduct" class="cart-item">
+    <div class="product-image">
+      <img class="product-image" [src]="product?.imagen" alt="Sporogenex" />
+    </div>
+    <div class="product-details">
+      <h4>{{product?.Nombre}} </h4>
+      <p>$ {{product.Precio | currency}} </p>
+      <div class="quantity-control">
+        <button (click)="decreaseQuantity(product)">-</button>
+        <input type="number" [value]="product?.Cantidad" />
+        <button (click)="increaseQuantity(product)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-footer">
+    <div class="total">
+      <p>TOTAL</p>
+      <h4> {{ this.ValorTotal | currency}}</h4>
+    </div>
+    <div class="actions">
+      <button (click)="vaciarCarro()" class="empty-cart">Vaciar cesta</button>
+    </div>
+    <div class="checkout-buttons">
+      <button (click)="abrirCarrito()" class="checkout">Realizar Pedido</button>
+      <button (click)="continuarComprando()" class="continue-shopping">Continuar Comprando</button>
+    </div>
+  </div>
+</div>

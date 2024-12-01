@@ -1,0 +1,22 @@
+<div class="header">
+    <p-menubar [model]="items!">
+        <ng-template pTemplate="item" let-item let-root="root">
+            <a pRipple class="flex align-items-center p-menuitem-link" (click)="redirectAction(item)">
+                <span [class]="item.icon"></span>
+                <h3 class="ml-2">{{ item.label }}</h3>
+                <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }"></p-badge>
+                <span *ngIf="item.shortcut"
+                    class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}
+                </span>
+                <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
+            </a>
+        </ng-template>
+    </p-menubar>
+</div>
+
+<div *ngIf="this.totalProducdts" class="card flex justify-content-center">
+    <p-sidebar [(visible)]="carrito" position="right">
+        <app-menu-list-cart [carrito]="carrito" (cerrarCarrito)="cerrarCarro($event)"
+            [listProduct]="this.totalProducdts[0]"></app-menu-list-cart>
+    </p-sidebar>
+</div>

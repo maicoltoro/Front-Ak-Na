@@ -1,0 +1,53 @@
+<div class="container list">
+  <aside class="filters">
+    <h3>Filtros</h3>
+    <div class="filter-group">
+      <h4>Productos Naturales</h4>
+      <ul>
+        <li>Digestivo</li>
+        <li>Cardiovascular y circulatorio</li>
+      </ul>
+    </div>
+
+    <div class="filter-group">
+      <h4>Cintas</h4>
+      <ul>
+        <li><input type="checkbox" /> Nuevo (2)</li>
+      </ul>
+    </div>
+
+    <div class="filter-group">
+      <h4>Precio</h4>
+      <ul>
+        <li><input type="checkbox" /> Bajo $32560 (8)</li>
+        <li><input type="checkbox" /> $3561 - $46120 (3)</li>
+        <li><input type="checkbox" /> $57081 - $80400 (1)</li>
+        <li><input type="checkbox" /> $68041 y arriba (4)</li>
+      </ul>
+    </div>
+
+    <div class="filter-group">
+      <h4>Marcas de Fábrica</h4>
+      <ul>
+        <li><input type="checkbox" /> Healthy America (1)</li>
+      </ul>
+    </div>
+  </aside>
+
+  <section class="products">
+    <div  class="product-card" *ngFor="let product of paginatedProducts">
+      <div (click)="redirectDetailProduct(product)" class="product-image mb-3">
+        <img [src]="product.imagen" [alt]="product.Nombre"
+          class="w-full border-round" />
+      </div>
+      <div class="product-details">
+        <h5>Producto : {{ product.Nombre }}</h5>
+        <p>Precio : {{ product.Precio | currency }} </p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<p-paginator [rows]="rows" [totalRecords]="5" [rowsPerPageOptions]="[5, 10, 15]"
+  (onPageChange)="paginate($event)"></p-paginator>

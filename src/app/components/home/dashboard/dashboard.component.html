@@ -1,0 +1,84 @@
+<div >
+    <img src="assets/img/home.jpg" alt="" width="100%" height="20%">
+    <div class="container">
+        <div >
+            <h2 class="mt-3 mb-3 text-center">CATEGORIAS</h2>
+            <p-carousel [value]="categories!" [numVisible]="3" [numScroll]="3" [circular]="true"
+                [responsiveOptions]="responsiveOptions!" [autoplayInterval]="3000">
+                >
+                <ng-template let-category pTemplate="item">
+                    <div (click)="redirectCategory(category)" class="border-1 surface-border border-round m-2 p-3">
+                        <div class="mb-3">
+                            <div class="relative mx-auto" style="cursor: pointer;">
+                                <img [src]="category.imagen"
+                                    [alt]="category.Nombre" width="200px" height="200px" />
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+        
+        <div class="row container-product">
+            <h3 class="mt-3 mb-3 text-center">Ultimos productos agregados</h3>
+        
+            <div class="col-3  p-3">
+                <img src="assets/img/home.jpg" alt="" width="100%" height="100%">
+            </div>
+        
+            <div class="col-3 p-3">
+                <img src="assets/img/home.jpg" alt="" width="100%" height="100%">
+            </div>
+        
+            <div class="p-3 col-3">
+                <img src="assets/img/home.jpg" alt="" width="100%" height="100%">
+            </div>
+        
+            <div class="p-3 col-3">
+                <img src="assets/img/home.jpg" alt="" width="100%" height="100%">
+            </div>
+        </div>
+        
+        <div class="row mt-5">
+            <div class="col-4 p-3">
+                <img src="assets/img/home.jpg" alt="" width="100%" height="100%">
+            </div>
+        
+            <div class="col-8 p-3">
+                <div class=" text-center">
+                    <div class="about-section">
+                        <h2>Sobre Nosotros</h2>
+                        <p>
+                            En Tienda Naturista Hadas y Duendes, buscamos evocar la conexión con la madre naturaleza
+                            y el bienestar integral del ser. Combinamos elementos naturales y simbólicos de manera
+                            armónica para ofrecerte productos que promuevan la salud y la espiritualidad.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row container-product text-center">
+            <h3 class="mt-3 mb-3 text-center">SERVICIOS</h3>
+        
+            <div class="col-4  p-3">
+                <img src="assets/img/home.jpg" alt="" width="100%" height="100%">
+                <p> texto de titulo</p>
+                <p> aca debe ir el texto de cada descripcion</p>
+            </div>
+        
+            <div class="col-4 p-3">
+                <img src="assets/img/home.jpg" alt="" width="100%" height="100%">
+                <p> texto de titulo</p>
+                <p> aca debe ir el texto de cada descripcion</p>
+            </div>
+        
+            <div class="p-4 col-3">
+                <img src="assets/img/home.jpg" alt="" width="100%" height="100%">
+                <p> texto de titulo</p>
+                <p> aca debe ir el texto de cada descripcion</p>
+            </div>
+        </div>
+    </div>
+    
+</div>

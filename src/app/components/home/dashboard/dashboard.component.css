@@ -1,0 +1,11 @@
+.text{
+    position: relative;
+    left : 45%
+}
+
+:host {
+    display: block;
+    height: 109rem;
+    position: relative;
+  }
+  
