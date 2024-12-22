@@ -1,6 +1,8 @@
 export interface Dias {
-    id : number
+    id? : number
     dia: string
-    activo : number
-    envioGratis : number
+    activo? : number
+    envioGratis? : boolean
+    fecha : string
+    valida? : boolean
 }

@@ -5,3 +5,8 @@ export interface Categories {
     Activa : number
     imagen : string 
 }
+
+export interface Marca {
+    ID :number
+    Nombre :string
+}

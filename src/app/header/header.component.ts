@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { EndpointService } from '../services/endpoint/endpoint.service';
+import { CartService } from '../services/CartService';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-header',
@@ -10,71 +13,79 @@ import { MenuItem } from 'primeng/api';
 export class HeaderComponent {
 
   constructor(
-    private router: Router
-  ){}
+    private router: Router,
+    private endPoind: EndpointService,
+    private cartService: CartService
+  ) { }
 
   items: MenuItem[] | undefined;
-  carrito : boolean = false
+  carrito: boolean = false
   totalProducdts: any = [];
+  cartItemCount: number = 0;
 
   ngOnInit() {
-    this.items = [
-      {
-        label: 'Pagina de inicio',
-        icon: 'pi pi-home',
-        command: () => this.redirectAction('/')
-      },
-      {
-        label: 'Productos naturales',
-        icon: 'pi pi-briefcase',
-        items: [
-          {
-            label: 'Accessories',
-            icon: 'pi pi-bolt',
-            command: () => this.redirectAction('product/Accessories')
-          },
-          {
-            label: 'Fitness',
-            icon: 'pi pi-server',
-            command: () => this.redirectAction('product/Fitness')
-          },
-          {
-            label: 'Clothing',
-            icon: 'pi pi-pencil',
-            command: () => this.redirectAction('product/Clothing')
-          },
-          {
-            separator: true
-          },
-        ]
-      },
-      {
-        label: 'Homeopatia',
-        icon: 'pi pi-envelope',
-        command: () => this.redirectAction('Homeopatia')
-      },
-      {
-        
-        icon: 'pi pi-shopping-cart',
-        command: () => this.cargarProductosCarrito(),
-        badge: JSON.parse(localStorage.getItem('product') || '[]').length
-      },
-    ];
+    this.cartService.cartItems$.subscribe((count) => {
+      this.cartItemCount = count;
+      this.initializeMenu();
+    });
+    this.initializeMenu();
   }
 
-  cerrarCarro( event : boolean){
+  initializeMenu() {
+    let Categorias: any = [];
+    this.endPoind.getServices('Categories').subscribe((data) => {
+      for (let index = 0; index < data.length; index++) {
+        Categorias.push({
+          label: data[index].Nombre,
+          icon: 'pi pi-tag',
+          command: () => this.redirectAction(`product/${data[index].ID}`)
+        });
+      }
+      this.items = [
+        {
+          label: 'Pagina de inicio',
+          icon: 'pi pi-home',
+          command: () => this.redirectAction('/')
+        },
+        {
+          label: 'Productos naturales',
+          icon: 'pi pi-briefcase',
+          items: Categorias
+        },
+        {
+          label: 'Homeopatia',
+          icon: 'pi pi-envelope',
+          command: () => this.redirectAction('Homeopatia')
+        },
+        {
+          icon: 'pi pi-shopping-cart',
+          command: () => this.cargarProductosCarrito(),
+          badge: `${this.cartItemCount}`
+        }
+      ];
+    });
+  }
+
+  cerrarCarro(event: boolean) {
     this.carrito = false
   }
 
-  cargarProductosCarrito(){
+  cargarProductosCarrito() {
     let productos = localStorage.getItem("product")
-    if(productos){
+    this.totalProducdts = []
+    if (productos) {
       this.carrito = true
       this.totalProducdts.push(JSON.parse(productos))
+    } else {
+      Swal.fire({
+        title: "Lo siento!",
+        text: "Todavia no has agregado ningun producto",
+        icon: "info"
+      });
     }
   }
 
-  redirectAction(url : string){
+  redirectAction(url: string) {
     this.router.navigate([url])
   }
 }

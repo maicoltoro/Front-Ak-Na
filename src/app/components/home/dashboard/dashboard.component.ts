@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Categories } from 'src/app/Interfaces/Categories';
 import { Product } from 'src/app/Interfaces/Product';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
-import { ProductService } from 'src/app/services/productservice';
 
 @Component({
     selector: 'app-dashboard',
@@ -12,6 +11,9 @@ import { ProductService } from 'src/app/services/productservice';
 })
 export class DashboardComponent {
     categories: Categories[] | undefined
+    UltimosProdcutos: Product[] = []
+    productDatil: Product | undefined
+    isModalVisible: boolean = false;
 
     responsiveOptions: any[] | undefined;
     constructor(
@@ -42,6 +44,7 @@ export class DashboardComponent {
 
     async getMetodos() {
         await this.getCategories()
+        await this.UltimosProductos()
     }
 
     getCategories() {
@@ -51,21 +54,19 @@ export class DashboardComponent {
             })
     }
 
+    UltimosProductos() {
+        this.endPoinServices.getServices('Product/Ultimos/Productos')
+            .subscribe((data) => {
+                this.UltimosProdcutos = data
+            })
+    }
+
     redirectCategory(event: Categories) {
         this.router.navigate(['product', event.ID])
     }
 
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warning';
-            case 'OUTOFSTOCK':
-                return 'danger';
-            default:
-                return 'danger';
-        }
+    showDialog(prodcut: Product) {
+        this.productDatil = prodcut
+        this.isModalVisible = true;
     }
-
 }

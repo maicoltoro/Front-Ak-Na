@@ -5,7 +5,7 @@
     </div>
     <div class="product-details">
       <h4>{{product?.Nombre}} </h4>
-      <p>$ {{product.Precio | currency}} </p>
+      <p>$ {{product.Precio | number:'1.0-0'}} </p>
       <div class="quantity-control">
         <button (click)="decreaseQuantity(product)">-</button>
         <input type="number" [value]="product?.Cantidad" />
@@ -17,7 +17,7 @@
   <div class="cart-footer">
     <div class="total">
       <p>TOTAL</p>
-      <h4> {{ this.ValorTotal | currency}}</h4>
+      <h4> {{ this.ValorTotal | number:'1.0-0'}}</h4>
     </div>
     <div class="actions">
       <button (click)="vaciarCarro()" class="empty-cart">Vaciar cesta</button>

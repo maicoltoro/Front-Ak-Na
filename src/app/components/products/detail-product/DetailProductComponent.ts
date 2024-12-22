@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { Factura, Product } from 'src/app/Interfaces/Product';
+import { Component, Input } from '@angular/core';
+import {  Product } from 'src/app/Interfaces/Product';
+import { CartService } from 'src/app/services/CartService';
 
 
 @Component({
@@ -10,13 +11,13 @@ import { Factura, Product } from 'src/app/Interfaces/Product';
 export class DetailProductComponent {
 
   totalProducdts: Array<Product> = [];
-  product: Product | undefined;  
+  @Input() product: Product | undefined;
   carrito: boolean = false;
   quantity: number = 1;
 
-  constructor() {
-    this.product = history.state.product;
-  }
+  constructor(
+    private cartService: CartService
+  ) {}
 
   ngOnInit() {
     this.totalProducdts.push(JSON.parse(localStorage.getItem('product') || '[]'))
@@ -29,11 +30,12 @@ export class DetailProductComponent {
       ...this.product,
       Cantidad: this.quantity
     })
-    localStorage.setItem('product', JSON.stringify(initialProduct));    
+    localStorage.setItem('product', JSON.stringify(initialProduct));
     const storedProduct = localStorage.getItem('product');
     if (storedProduct) {
       this.totalProducdts?.push(JSON.parse(storedProduct));
       this.carrito = true;
+      this.cartService.updateCartCount();
     }
   }
 
@@ -41,7 +43,7 @@ export class DetailProductComponent {
     this.quantity++;
   }
 
-  cerrarCarro(event: boolean){
+  cerrarCarro(event: boolean) {
     this.carrito = event
   }
 

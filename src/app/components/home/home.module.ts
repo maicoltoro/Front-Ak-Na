@@ -6,6 +6,8 @@ import { LoginComponent } from './login/login.component';
 
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
+import { DialogModule } from 'primeng/dialog';
+import { ProductsModule } from '../products/products.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { TagModule } from 'primeng/tag';
     CommonModule,
     HomeRoutingModule,
     CarouselModule,
-    TagModule
+    TagModule,
+    DialogModule,
+    ProductsModule
   ]
 })
 export class HomeModule { }
