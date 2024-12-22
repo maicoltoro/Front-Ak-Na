@@ -29,6 +29,9 @@ export interface Factura {
     Tiempo? : number
     HoraInicio? : string
     HoraFin? :string
+    Precio? :number
+    Imagen?: string
+    Nombre?:string
 }
 
 export interface TipoIdentificacion{

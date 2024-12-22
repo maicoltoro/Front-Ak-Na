@@ -1,7 +1,7 @@
-<div >
+<div>
     <img src="assets/img/home.jpg" alt="" width="100%" height="20%">
     <div class="container">
-        <div >
+        <div>
             <h2 class="mt-3 mb-3 text-center">CATEGORIAS</h2>
             <p-carousel [value]="categories!" [numVisible]="3" [numScroll]="3" [circular]="true"
                 [responsiveOptions]="responsiveOptions!" [autoplayInterval]="3000">
@@ -10,75 +10,75 @@
                     <div (click)="redirectCategory(category)" class="border-1 surface-border border-round m-2 p-3">
                         <div class="mb-3">
                             <div class="relative mx-auto" style="cursor: pointer;">
-                                <img [src]="category.imagen"
-                                    [alt]="category.Nombre" width="200px" height="200px" />
+                                <img [src]="category.imagen" [alt]="category.Nombre" width="200px" height="200px" />
                             </div>
                         </div>
                     </div>
                 </ng-template>
             </p-carousel>
         </div>
-        
-        <div class="row container-product">
-            <h3 class="mt-3 mb-3 text-center">Ultimos productos agregados</h3>
-        
-            <div class="col-3  p-3">
-                <img src="assets/img/home.jpg" alt="" width="100%" height="100%">
-            </div>
-        
-            <div class="col-3 p-3">
-                <img src="assets/img/home.jpg" alt="" width="100%" height="100%">
-            </div>
-        
-            <div class="p-3 col-3">
-                <img src="assets/img/home.jpg" alt="" width="100%" height="100%">
-            </div>
-        
-            <div class="p-3 col-3">
-                <img src="assets/img/home.jpg" alt="" width="100%" height="100%">
-            </div>
-        </div>
-        
-        <div class="row mt-5">
-            <div class="col-4 p-3">
-                <img src="assets/img/home.jpg" alt="" width="100%" height="100%">
-            </div>
-        
-            <div class="col-8 p-3">
-                <div class=" text-center">
-                    <div class="about-section">
-                        <h2>Sobre Nosotros</h2>
-                        <p>
-                            En Tienda Naturista Hadas y Duendes, buscamos evocar la conexión con la madre naturaleza
-                            y el bienestar integral del ser. Combinamos elementos naturales y simbólicos de manera
-                            armónica para ofrecerte productos que promuevan la salud y la espiritualidad.
-                        </p>
-                    </div>
+
+        <div class="products-section">
+            <h2>Ultimos productos agregados</h2>
+            <div class="products-container">
+                <div class="product-card" *ngFor="let product of UltimosProdcutos">
+                    <img [src]="product.imagen" [alt]="product.Nombre" style="cursor: pointer;"
+                        (click)="showDialog(product)" />
+                    <h3>{{ product.Nombre }}</h3>
+                    <p class="new-price">${{product.Precio | number:'1.0-0' }}</p>
                 </div>
             </div>
         </div>
-        
-        <div class="row container-product text-center">
-            <h3 class="mt-3 mb-3 text-center">SERVICIOS</h3>
-        
-            <div class="col-4  p-3">
-                <img src="assets/img/home.jpg" alt="" width="100%" height="100%">
-                <p> texto de titulo</p>
-                <p> aca debe ir el texto de cada descripcion</p>
+
+        <div class="about-section">
+            <div class="about-container">
+                <div class="about-image">
+                    <img src="assets/img/Imagen1.png" alt="Naturaleza" />
+                </div>
+                <div class="about-text">
+                    <h2>Sobre Nosotros</h2>
+                    <p>
+                        En Tienda Naturista Hadas y Duendes, buscamos evocar la conexión con la madre naturaleza y el
+                        bienestar integral del ser.
+                        Combinamos elementos naturales y simbólicos de manera armónica para ofrecerte productos que
+                        promuevan la salud y la espiritualidad.
+                    </p>
+                </div>
             </div>
-        
-            <div class="col-4 p-3">
-                <img src="assets/img/home.jpg" alt="" width="100%" height="100%">
-                <p> texto de titulo</p>
-                <p> aca debe ir el texto de cada descripcion</p>
-            </div>
-        
-            <div class="p-4 col-3">
-                <img src="assets/img/home.jpg" alt="" width="100%" height="100%">
-                <p> texto de titulo</p>
-                <p> aca debe ir el texto de cada descripcion</p>
+        </div>
+
+        <div class="services-section">
+            <h2>SERVICIOS</h2>
+            <div class="services-container">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="assets/img/hierbas.jpg" />
+                    </div>
+                    <h3>Hierbas medicinales</h3>
+                    <p>Ofrecemos una amplia variedad de hierbas medicinales para mejorar tu salud y bienestar integral
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="assets/img/Organicos.png" />
+                    </div>
+                    <h3>Productos organicos</h3>
+                    <p>Nuestros productos organicos son ideales para llevar un estilo de vida saludable y sostenible</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="assets/img/imagen3.jpg" />
+                    </div>
+                    <h3>Consejeria holistica</h3>
+                    <p>Proporcionamos asesoramiento para ayudarte a encontrar un equilibrio emocional y espiritual</p>
+                </div>
             </div>
         </div>
     </div>
-    
 </div>
+
+<p-dialog [(visible)]="isModalVisible" header='Descripcion de producto' [modal]="true" [closable]="true">
+    <app-detail-prodcut [product]="this.productDatil"></app-detail-prodcut>
+</p-dialog>

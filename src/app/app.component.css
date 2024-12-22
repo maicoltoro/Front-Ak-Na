@@ -20,9 +20,10 @@ html, body {
 
 .footer {
   background-color: #f8f9fa; /* Color de fondo opcional */
-  padding: 10px; /* Espaciado opcional */
   text-align: center;
   border-top: 1px solid #ddd; /* Línea opcional */
+  display: block;
+  height: auto;
 }
 ::ng-deep .p-component-overlay{
   z-index: 0 !important;

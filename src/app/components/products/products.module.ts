@@ -11,6 +11,7 @@ import { MenuListCartComponent } from './menu-list-cart/menu-list-cart.component
 import { CarritoComponent } from './carrito/carrito.component';
 import { StepsModule } from 'primeng/steps';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { ButtonModule } from 'primeng/button';
     ListProductComponent,
     DetailProductComponent,
     MenuListCartComponent,
-    CarritoComponent
+    CarritoComponent,
   ],
   imports: [
     CommonModule,
@@ -27,10 +28,12 @@ import { ButtonModule } from 'primeng/button';
     SidebarModule,
     StepsModule,
     ButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DialogModule
   ],
   exports:[
-    MenuListCartComponent
+    MenuListCartComponent,
+    DetailProductComponent
   ]
 })
 export class ProductsModule { }

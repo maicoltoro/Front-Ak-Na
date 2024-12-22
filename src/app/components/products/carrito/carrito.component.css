@@ -193,3 +193,7 @@ h3 {
   border: 1px solid #9d9696;
   margin-right: 10px;
 }
+
+.formContainer{
+  height: 46rem;
+}

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/Interfaces/Product';
+import { CartService } from 'src/app/services/CartService';
 
 @Component({
   selector: 'app-menu-list-cart',
@@ -15,7 +16,8 @@ export class MenuListCartComponent {
   ValorTotal: number = 0
 
   constructor(
-    private router: Router
+    private router: Router,
+    private cartService: CartService
   ) { }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -65,6 +67,8 @@ export class MenuListCartComponent {
   vaciarCarro() {
     this.listProduct.splice(0, this.listProduct.length)
     localStorage.removeItem('product')
+    this.ValorTotal = 0
+    this.cartService.updateCartCount();
   }
 
   isValid(data: any): boolean {

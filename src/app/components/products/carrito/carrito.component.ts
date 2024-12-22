@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Dias } from 'src/app/Interfaces/Dias';
 import { Factura, Product, TipoIdentificacion } from 'src/app/Interfaces/Product';
+import { CartService } from 'src/app/services/CartService';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 import Swal from 'sweetalert2'
+
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
@@ -18,15 +21,16 @@ export class CarritoComponent {
   tipoIdentificacion: TipoIdentificacion[] | undefined
   checkoutForm!: FormGroup;
   departments = ['Cali'];
+  FechaEnvioGratis = ''
 
   daysOfWeek: Array<Dias> = [];
   ValorTotal: number = 0
-  shippingCost = 5000; // Ejemplo de costo fijo
-
-  valorEnvio: number = 132000
+  valorEnvio: number = 0
   constructor(
     private fb: FormBuilder,
     private endPoint: EndpointService,
+    private router: Router,
+    private cartService: CartService
   ) {
     this.products = history.state.listProduct;
   }
@@ -66,13 +70,29 @@ export class CarritoComponent {
   async getMetodos() {
     await this.getDias()
     await this.getTipoIdentificacion()
+    //await this.getEnvio()
     await this.calcularValorTotal()
   }
 
   getDias() {
     this.endPoint.getServices('Dias')
       .subscribe((data) => {
-        this.daysOfWeek = data
+        this.FechaEnvioGratis = new Date(data[0].FechaEnvioGratis).toLocaleDateString('es-us', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+        let semana : Dias[] = this.getCurrentWeekRange()
+        let fechaEnvioGratis = new Date(data[0].FechaEnvioGratis.split('T')[0]).toLocaleDateString()
+        semana.forEach(e  =>{
+          e.valida = (new Date().toLocaleDateString() < e.fecha) ? true : false 
+          e.envioGratis = (e.fecha == fechaEnvioGratis) ? true : false
+          return e
+        })
+        this.daysOfWeek = semana
+      })
+  }
+
+  getEnvio() {
+    this.endPoint.getServices('Dias/ValorEnvio')
+      .subscribe((data) => {
+        this.valorEnvio = parseInt(data[0].ValorEnvio)
       })
   }
 
@@ -91,6 +111,22 @@ export class CarritoComponent {
     }
   }
 
+  getCurrentWeekRange() {
+    let objfecha: Array<Dias> = []
+    for (let index = 0; index < 7; index++) {
+      const today = new Date();
+      const firstDayOfWeek = new Date(today);
+      firstDayOfWeek.setDate(today.getDate() + index);
+      const formatDate = (date: Date) => date.toLocaleDateString();
+
+      objfecha.push({
+        dia: firstDayOfWeek.toLocaleDateString('es-us',{weekday: 'long'}),
+        fecha: formatDate(firstDayOfWeek)
+      })
+    }
+    return objfecha
+  }
+
   ReguistrarCompra() {
     if (this.checkoutForm.valid) {
       let objfactura: Factura[] = []
@@ -102,7 +138,10 @@ export class CarritoComponent {
             DiaEntrega: this.f['selectedDay'].value,
             HoraFin: '',
             HoraInicio: '',
-            Tiempo: 0
+            Tiempo: 0,
+            Imagen : this.products[index].imagen,
+            Nombre : this.products[index].Nombre,
+            Precio : this.products[index].Precio
           }
         )
       }
@@ -114,27 +153,35 @@ export class CarritoComponent {
         direccion: this.f['address'].value,
         telefono: this.f['phone'].value,
         departamento: this.f['department'].value,
-        tipoIdentificacion : this.f['tipoIdentificacion'].value,
-        numeroIdentificacion :this.f['numeroIdentificacion'].value,
-        suscripcionNoticias : this.f['subscribe'].value,
-        valorCompra : this.ValorTotal + this.valorEnvio
+        tipoIdentificacion: this.f['tipoIdentificacion'].value,
+        numeroIdentificacion: this.f['numeroIdentificacion'].value,
+        suscripcionNoticias: this.f['subscribe'].value,
+        valorCompra: this.ValorTotal + this.valorEnvio
       }
-      this.endPoint.postServices('Carrito',obj).subscribe((data)  =>{
-        if(data.status == 200){
+      this.endPoint.postServices('Carrito', obj).subscribe((data) => {
+        if (data.status == 200) {
           Swal.fire({
-            title: "Good job!",
-            text: "You clicked the button!",
+            title: "Felicidades!",
+            text: "Tu pedido se realizo con exito, en tu correo podras ver un resumen de tu pedido",
             icon: "success"
-          });
-          localStorage.removeItem('product')
+          }).then((result) => {
+            localStorage.removeItem('product')
+            this.cartService.updateCartCount();
+            this.router.navigate(["/"])
+          })
         }
       })
     }
   }
 
   DiaEnvio(event: any) {
+    let fecha = event.target.value.split(' - ')[1].replace("  ", "")
+    let envioGratis = this.daysOfWeek.filter(e => e.fecha == fecha)[0].envioGratis
+    if(envioGratis){
+      this.valorEnvio = 0
+    }else {
+      this.getEnvio()
+    }
     this.f['selectedDay'].setValue(event.target.value)
-    console.log(this.f)
   }
-
 }

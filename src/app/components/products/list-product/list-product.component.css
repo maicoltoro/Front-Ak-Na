@@ -77,3 +77,69 @@
     margin: 0;
   }
   
+  .filter-group {
+    font-family: Arial, sans-serif;
+    border: 1px solid #ddd;
+    padding: 16px;
+    border-radius: 8px;
+    max-width: 300px;
+  }
+  
+  .filter-title {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #333;
+  }
+  
+  .price-options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .price-options li {
+    margin-bottom: 8px;
+  }
+  
+  .price-options input[type="radio"] {
+    margin-right: 8px;
+    accent-color: #007bff;
+  }
+  
+  .price-options label {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .price-options .count {
+    color: #999;
+    font-size: 12px;
+    margin-left: 4px;
+  }
+  
+  .price-range {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    gap: 8px;
+  }
+  
+  .price-input {
+    width: 100px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .price-input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .separator {
+    font-size: 16px;
+    color: #555;
+  }
+  
