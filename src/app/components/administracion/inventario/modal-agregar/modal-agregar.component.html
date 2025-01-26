@@ -1,0 +1,125 @@
+<p-dialog header="Agregar Nuevo Producto" [(visible)]="displayAddProductModal" [modal]="true" [closable]="true"
+    [style]="{ width: '50vw' }" [styleClass]="'custom-dialog'">
+    <form [formGroup]="addProductForm" class="row g-3 needs-validation" novalidate>
+        <div class="col-md-4">
+            <label for="nombre" class="form-label">Nombre del producto</label>
+            <input type="text" class="form-control" id="nombre" formControlName="nombre" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label for="Categoria" class="form-label">Categoria</label>
+            <div class="input-group has-validation">
+                <select class="form-select" id="Categoria" (change)="getMarcas(this.f['categoria'].value)" required
+                    formControlName="categoria">
+                    <option selected disabled value="">Seleccione</option>
+                    <option *ngFor="let categoria of categorias" [value]="categoria.ID"> {{categoria.Nombre}} </option>
+                </select>
+                <div class="invalid-feedback">
+                    Please choose a username.
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label for="marca" class="form-label">Marca</label>
+            <select class="form-select" id="marca" required formControlName="marca">
+                <option selected disabled value="">Seleccione</option>
+                <option *ngFor="let marca of marcas" [value]="marca.ID"> {{marca.Nombre}} </option>
+            </select>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <label for="descripcion" class="form-label">descripcion</label>
+            <input type="text" class="form-control" id="descripcion" required formControlName="descripcion">
+            <div class="invalid-feedback">
+                Please provide a valid city.
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <label for="precio" class="form-label">Precio</label>
+            <input type="number" class="form-control" id="precio" required formControlName="precio">
+            <div class="invalid-feedback">
+                Please provide a valid city.
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <label for="cantidad" class="form-label">Cantidad</label>
+            <input type="number" class="form-control" id="cantidad" required formControlName="cantidad">
+            <div class="invalid-feedback">
+                Please provide a valid city.
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <label for="imagen" class="form-label">Imagen</label>
+            <input type="file" (change)="onFileSelected($event)" accept="image/*" #fileInput class="form-control"
+                id="imagen" required formControlName="imagen">
+            <div class="invalid-feedback">
+                Please select a valid state.
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="descuento" class="form-label">Agregar descuento</label>
+            <select class="form-select" id="descuento" required formControlName="descuento">
+                <option selected disabled value="">Seleccione</option>
+                <option value="true">Si</option>
+                <option value="false">No</option>
+            </select>
+            <div class="invalid-feedback">
+                Please provide a valid zip.
+            </div>
+        </div>
+
+        <div class="col-md-3" *ngIf="this.f['descuento'].value == 'true'">
+            <label for="valorDescuento" class="form-label">Valor del descuento</label>
+            <input type="number" class="form-control" id="valorDescuento" required formControlName="valorDescuento">
+            <div class="invalid-feedback">
+                Please provide a valid zip.
+            </div>
+        </div>
+
+        <div class="col-md-3" *ngIf="this.f['descuento'].value == 'true'">
+            <label for="fechaInicio" class="form-label">Inicio de descuento</label>
+            <input type="date" class="form-control" id="fechaInicio" (change)="ValidaFechaInicio()" required
+                formControlName="fechaInicio">
+            <div class="invalid-feedback">
+                Please provide a valid zip.
+            </div>
+        </div>
+
+        <div class="col-md-3" *ngIf="this.f['descuento'].value == 'true'">
+            <label for="fechaFin" class="form-label">Fin de descuento</label>
+            <input type="date" class="form-control" id="fechaFin" (change)="ValidaFechaFinal()" required
+                formControlName="fechaFin">
+            <div class="invalid-feedback">
+                Please provide a valid zip.
+            </div>
+        </div>
+
+        <div class="p-dialog-footer">
+            <button pButton label="Cancelar" class="p-button-text" (click)="onCancelAddProduct()"></button>
+            <button pButton label="Agregar" class="p-button-success" type="submit" [disabled]="this.f['nombre'].errors || 
+                            this.f['categoria'].errors ||
+                            this.f['fechaFin'].errors ||
+                            this.f['fechaInicio'].errors ||
+                            this.f['valorDescuento'].errors ||
+                            this.f['descuento'].errors  ||
+                            this.f['cantidad'].errors  ||
+                            this.f['imagen'].errors || 
+                            this.f['marca'].errors || 
+                            this.f['precio'].errors" (click)="onAddProduct()"></button>
+        </div>
+    </form>
+</p-dialog>
+
+<div *ngIf="Spinner" class="spinner">
+    <p-progressSpinner></p-progressSpinner>
+</div>

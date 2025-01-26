@@ -20,18 +20,18 @@ export class DetailProductComponent {
   ) {}
 
   ngOnInit() {
-    this.totalProducdts.push(JSON.parse(localStorage.getItem('product') || '[]'))
+    this.totalProducdts.push(JSON.parse(sessionStorage.getItem('product') || '[]'))
   }
 
   ActivarCarrito() {
     this.totalProducdts.splice(0, this.totalProducdts.length)
-    let initialProduct = JSON.parse(localStorage.getItem('product') || '[]');
+    let initialProduct = JSON.parse(sessionStorage.getItem('product') || '[]');
     initialProduct.push({
       ...this.product,
       Cantidad: this.quantity
     })
-    localStorage.setItem('product', JSON.stringify(initialProduct));
-    const storedProduct = localStorage.getItem('product');
+    sessionStorage.setItem('product', JSON.stringify(initialProduct));
+    const storedProduct = sessionStorage.getItem('product');
     if (storedProduct) {
       this.totalProducdts?.push(JSON.parse(storedProduct));
       this.carrito = true;

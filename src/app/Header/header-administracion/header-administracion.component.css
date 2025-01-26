@@ -1,0 +1,102 @@
+.contenedor {
+  box-sizing: border-box;
+  --duration: .45s;
+  --cubic: cubic-bezier(0.4, 0, 0.2, 1);
+  --color-1: #d5dadd;
+  --color-2: #51d5c2;
+}
+
+.menu {
+  margin: 0;
+  width: 12em; 
+  display: flex;
+  height: auto;
+  user-select: none;
+  position: relative;
+  align-items: center;
+  flex-direction: column; 
+  padding: 1.5em 0;
+  justify-content: flex-start;
+  background-color: #121212;
+  border-radius: 1em;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.menu__item {
+  all: unset;
+  width: 100%; 
+  display: flex;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 1em 0;
+  position: relative;
+  align-items: center;
+  color: var(--color-1);
+  justify-content: center;
+  transition: flex-grow var(--duration) var(--cubic);
+  flex-direction: column; 
+}
+
+.menu__icon {
+  font-size: 1.5em;
+  stroke: currentColor;
+  margin-bottom: 0.5em; 
+  transition: transform var(--duration) var(--cubic);
+}
+
+
+.menu__item::after {
+  left: 0;
+  bottom: 0;
+  content: " ";
+  height: 0.25em;
+  position: absolute;
+  border-radius: 2em;
+  transform-origin: left center;
+  background-color: currentColor;
+  width: calc(var(--lineWidth) + 5px);
+  transform: translate3d(3em, 0, 0) scaleX(0);
+  transition: transform calc(var(--duration) + .2s) var(--cubic);
+}
+
+.menu__text {
+  font-size: 1em; 
+  text-transform: capitalize;
+  letter-spacing: 0.01em;
+  transform: translate3d(0, 0, 0); 
+  text-align: center; 
+  transition: transform calc(var(--duration) / 3.7);
+}
+
+.menu__item.active {
+  flex-grow: 1; 
+  color: var(--color-2);
+}
+
+.menu__item.active .menu__icon {
+  transform: scale(1.2); 
+}
+
+.menu__item.active::before {
+  transform: scale(1);
+}
+
+.menu__text.active {
+  transform: translate3d(0, 0, 0);
+  transition: transform calc(var(--duration) / 1.5);
+}
+
+.icon {
+  --duration-icon: 1s;
+  fill: none;
+  width: 2.5em;
+  height: 2.5em;
+  display: block;
+  stroke-width: 15;
+  stroke-miterlimit: 10;
+}
+
+.imagenMenu{
+  border: 2px solid  ;
+  border-radius: 17px;
+}

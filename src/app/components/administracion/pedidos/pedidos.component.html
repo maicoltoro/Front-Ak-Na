@@ -1,0 +1,65 @@
+<div class="factura-container">
+  <div class="factura-lista">
+    <div class="factura-item" *ngFor="let pedido of pedidos; let i = index" (click)="mostrarDetalle(i)">
+      <h3>{{ pedido.NombreCompleto }}</h3>
+      <p><strong>Correo:</strong> {{ pedido.Correo }}</p>
+      <p><strong>Dirección:</strong> {{ pedido.Direccion }}</p>
+      <p><strong>Estado:</strong> {{ pedido.Estado }}</p>
+    </div>
+  </div>
+
+  <div class="factura-detalle-container" *ngIf="pedidoSeleccionada">
+    <div class="factura-detalle">
+      <div class="detalle-cliente">
+        <h2>Detalles del Cliente</h2>
+        <div class="detalle-item">
+          <span class="detalle-label">ID:</span>
+          <span>{{ pedidoSeleccionada.IdPedido }}</span>
+        </div>
+        <div class="detalle-item">
+          <span class="detalle-label">Nombre:</span>
+          <span>{{ pedidoSeleccionada.NombreCompleto }}</span>
+        </div>
+        <div class="detalle-item">
+          <span class="detalle-label">Correo:</span>
+          <span>{{ pedidoSeleccionada.Correo }}</span>
+        </div>
+        <div class="detalle-item">
+          <span class="detalle-label">Dirección:</span>
+          <span>{{ pedidoSeleccionada.Direccion }}</span>
+        </div>
+        <div class="detalle-item">
+          <span class="detalle-label">Fecha entrega:</span>
+          <span>{{ pedidoSeleccionada.DiaEntrega }}</span>
+        </div>
+        <div class="detalle-item">
+          <span class="detalle-label">Total:</span>
+          <span>{{ pedidoSeleccionada.ValorCompra | currency }}</span>
+        </div>
+      </div>
+
+      <div class="detalle-productos">
+        <h3>Productos</h3>
+        <div class="producto-item" *ngFor="let producto of facturaSeleccionada">
+          <div class="producto-contenido">
+            <div class="producto-texto">
+              <p><strong>Nombre:</strong> {{ producto.Nombre }}</p>
+              <p><strong>Cantidad:</strong> {{ producto.Cantidad }}</p>
+              <p><strong>Precio:</strong> $ {{ producto.Precio | number }}</p>
+            </div>
+            <div class="producto-imagen">
+              <img [src]="producto.Imagen" alt="Imagen del producto" />
+            </div>
+          </div>
+          <hr />
+        </div>
+        <hr />
+        <br>
+        <div class="producto-imagen">
+          <p-toast />
+          <p-splitButton label="Actualizar estado" [model]="items!" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

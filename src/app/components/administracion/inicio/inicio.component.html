@@ -1,0 +1,65 @@
+<div class="dashboard-container">
+    <!-- Header -->
+    <div class="header">
+        <h2>⭐ Bienvenido<span class="premium"></span></h2>
+    </div>
+
+    <div class="info-cards">
+        <div class="info-card">
+            <div class="additional-charts">
+                <div class="segmentation">
+                    <h3>Clientes frecuentes</h3>
+                    <p-chart type="doughnut" [data]="GraficaClientesFrecuentes"></p-chart>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="additional-charts">
+                <div class="segmentation">
+                    <h3>Categorias favortias</h3>
+                    <p-chart type="doughnut" [data]="GraficaProductosCategorio"></p-chart>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="additional-charts">
+                <div class="segmentation">
+                    <h3>Dias con mayor flujo</h3>
+                    <p-chart type="doughnut" [data]="GraficaDiasVentas"></p-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="work-summary">
+        <div class="chart">
+            <p-chart type="line" [data]="chartData" [options]="chartOptions"></p-chart>
+        </div>
+        <div class="country-table">
+            <h3>Productos mas vendidos en el mes</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of GraficaMasVendidos">
+                        <td>
+                            <img [src]="product.Imagen" width="100px" height="80px" alt="Flag" />
+                            {{ product.Nombre }}
+                        </td>
+                        <td>{{ product.Cantidad}}</td>
+                        <td>
+                            <p> ${{ product.Precio | number:'1.0-0' }}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

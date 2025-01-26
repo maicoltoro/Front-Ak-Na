@@ -1,0 +1,13 @@
+<div class="contenedor">
+    <menu class="menu">
+        <button *ngFor="let item of menuItems" class="menu__item" [class.active]="item === activeItem"
+            (click)="onMenuItemClick(item)">
+            <div class="menu__icon">
+                <div *ngFor="let path of item.icon.paths">
+                    <img (click)="Redirigir(item.text)" class="imagenMenu" [src]="path" width="60px" height="60px" alt="">
+                </div>
+            </div>
+            <strong class="menu__text" [class.active]="item === activeItem">{{ item.text }}</strong>
+        </button>
+    </menu>
+</div>

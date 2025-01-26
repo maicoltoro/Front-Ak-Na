@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { EndpointService } from '../services/endpoint/endpoint.service';
-import { CartService } from '../services/CartService';
+import { EndpointService } from '../../services/endpoint/endpoint.service';
+import { CartService } from '../../services/CartService';
 import Swal from 'sweetalert2'
 
 @Component({
@@ -34,35 +34,37 @@ export class HeaderComponent {
   initializeMenu() {
     let Categorias: any = [];
     this.endPoind.getServices('Categories').subscribe((data) => {
-      for (let index = 0; index < data.length; index++) {
-        Categorias.push({
-          label: data[index].Nombre,
-          icon: 'pi pi-tag',
-          command: () => this.redirectAction(`product/${data[index].ID}`)
-        });
-      }
-      this.items = [
-        {
-          label: 'Pagina de inicio',
-          icon: 'pi pi-home',
-          command: () => this.redirectAction('/')
-        },
-        {
-          label: 'Productos naturales',
-          icon: 'pi pi-briefcase',
-          items: Categorias
-        },
-        {
-          label: 'Homeopatia',
-          icon: 'pi pi-envelope',
-          command: () => this.redirectAction('Homeopatia')
-        },
-        {
-          icon: 'pi pi-shopping-cart',
-          command: () => this.cargarProductosCarrito(),
-          badge: `${this.cartItemCount}`
+      if(data.status == 200){
+        for (let index = 0; index < data.response.length; index++) {
+          Categorias.push({
+            label: data.response[index].Nombre,
+            icon: 'pi pi-tag',
+            command: () => this.redirectAction(`product/${data.response[index].ID}`)
+          });
         }
-      ];
+        this.items = [
+          {
+            label: 'Pagina de inicio',
+            icon: 'pi pi-home',
+            command: () => this.redirectAction('/')
+          },
+          {
+            label: 'Productos naturales',
+            icon: 'pi pi-briefcase',
+            items: Categorias
+          },
+          {
+            label: 'Homeopatia',
+            icon: 'pi pi-envelope',
+            command: () => this.redirectAction('Homeopatia')
+          },
+          {
+            icon: 'pi pi-shopping-cart',
+            command: () => this.cargarProductosCarrito(),
+            badge: `${this.cartItemCount}`
+          }
+        ];
+      }
     });
   }
 
@@ -71,7 +73,7 @@ export class HeaderComponent {
   }
 
   cargarProductosCarrito() {
-    let productos = localStorage.getItem("product")
+    let productos = sessionStorage.getItem("product")
     this.totalProducdts = []
     if (productos) {
       this.carrito = true

@@ -66,7 +66,7 @@ export class MenuListCartComponent {
 
   vaciarCarro() {
     this.listProduct.splice(0, this.listProduct.length)
-    localStorage.removeItem('product')
+    sessionStorage.removeItem('product')
     this.ValorTotal = 0
     this.cartService.updateCartCount();
   }
