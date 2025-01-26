@@ -77,29 +77,35 @@ export class CarritoComponent {
   getDias() {
     this.endPoint.getServices('Dias')
       .subscribe((data) => {
-        this.FechaEnvioGratis = new Date(data[0].FechaEnvioGratis).toLocaleDateString('es-us', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
-        let semana : Dias[] = this.getCurrentWeekRange()
-        let fechaEnvioGratis = new Date(data[0].FechaEnvioGratis.split('T')[0]).toLocaleDateString()
-        semana.forEach(e  =>{
-          e.valida = (new Date().toLocaleDateString() < e.fecha) ? true : false 
-          e.envioGratis = (e.fecha == fechaEnvioGratis) ? true : false
-          return e
-        })
-        this.daysOfWeek = semana
+        if (data.status == 200) {
+          this.FechaEnvioGratis = new Date(data.response[0].FechaEnvioGratis).toLocaleDateString('es-us', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+          let semana: Dias[] = this.getCurrentWeekRange()
+          let fechaEnvioGratis = new Date(data.response[0].FechaEnvioGratis.split('T')[0]).toLocaleDateString()
+          semana.forEach(e => {
+            e.valida = (new Date().toLocaleDateString() < e.fecha) ? true : false
+            e.envioGratis = (e.fecha == fechaEnvioGratis) ? true : false
+            return e
+          })
+          this.daysOfWeek = semana
+        }
       })
   }
 
   getEnvio() {
     this.endPoint.getServices('Dias/ValorEnvio')
       .subscribe((data) => {
-        this.valorEnvio = parseInt(data[0].ValorEnvio)
+        if(data.status){
+          this.valorEnvio = parseInt(data.response[0].ValorEnvio)
+        }
       })
   }
 
   getTipoIdentificacion() {
     this.endPoint.getServices('Carrito/TipoIdentificacion')
       .subscribe((data) => {
-        this.tipoIdentificacion = data
+        if(data.status){
+          this.tipoIdentificacion = data.response
+        }
       })
   }
 
@@ -120,7 +126,7 @@ export class CarritoComponent {
       const formatDate = (date: Date) => date.toLocaleDateString();
 
       objfecha.push({
-        dia: firstDayOfWeek.toLocaleDateString('es-us',{weekday: 'long'}),
+        dia: firstDayOfWeek.toLocaleDateString('es-us', { weekday: 'long' }),
         fecha: formatDate(firstDayOfWeek)
       })
     }
@@ -139,9 +145,9 @@ export class CarritoComponent {
             HoraFin: '',
             HoraInicio: '',
             Tiempo: 0,
-            Imagen : this.products[index].imagen,
-            Nombre : this.products[index].Nombre,
-            Precio : this.products[index].Precio
+            Imagen: this.products[index].imagen,
+            Nombre: this.products[index].Nombre,
+            Precio: this.products[index].Precio
           }
         )
       }
@@ -165,7 +171,7 @@ export class CarritoComponent {
             text: "Tu pedido se realizo con exito, en tu correo podras ver un resumen de tu pedido",
             icon: "success"
           }).then((result) => {
-            localStorage.removeItem('product')
+            sessionStorage.removeItem('product')
             this.cartService.updateCartCount();
             this.router.navigate(["/"])
           })
@@ -177,9 +183,9 @@ export class CarritoComponent {
   DiaEnvio(event: any) {
     let fecha = event.target.value.split(' - ')[1].replace("  ", "")
     let envioGratis = this.daysOfWeek.filter(e => e.fecha == fecha)[0].envioGratis
-    if(envioGratis){
+    if (envioGratis) {
       this.valorEnvio = 0
-    }else {
+    } else {
       this.getEnvio()
     }
     this.f['selectedDay'].setValue(event.target.value)

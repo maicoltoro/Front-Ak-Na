@@ -1,0 +1,75 @@
+<p-dialog header="Información del Producto" [(visible)]="displayModal" [modal]="true" [closable]="true"
+    [baseZIndex]="1000" [contentStyle]="{display: 'flex', flexDirection: 'column', alignItems: 'center'}">
+    <form [formGroup]="editProductForm" (ngSubmit)="onSave()" class="modal-form">
+        <div class="form-container">
+            <div class="checkout">
+                <div class="credit-card-box">
+                    <img class="logo" [src]="selectedProduct?.Imagen" width="100%" height="253px" alt="">
+                </div>
+                <form [formGroup]="editProductForm" class="form" autocomplete="off" novalidate>
+                    <fieldset class="form-row">
+                        <div class="form-item">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" class="input-cart-number" formControlName="Nombre" />
+                        </div>
+
+                        <div class="form-item">
+                            <label for="Cantidad">Cantidad</label>
+                            <input type="number" id="Cantidad" class="input-cart-number" formControlName="Cantidad" />
+                        </div>
+
+                        <div class="form-item">
+                            <label for="Precio">Precio</label>
+                            <input type="number" id="Precio" class="input-cart-number" formControlName="Precio" />
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <label for="Descripcion">Descripcion</label>
+                        <input type="text" id="Descripcion" formControlName="Descripcion" />
+                    </fieldset>
+
+                    <fieldset class="form-row fieldset-expiration">
+                        <div class="form-item">
+                            <label for="Activo">Producto activo</label>
+                            <select id="Activo" formControlName="Activo">
+                                <option value="" selected disabled>Selecciona</option>
+                                <option value="1">Si</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="form-item">
+                            <label for="AgDesc">Agregar Descuento</label>
+                            <select id="AgDesc" formControlName="AgDesc">
+                                <option value="" selected disabled>Selecciona</option>
+                                <option value="1">Si</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </fieldset>
+                    <fieldset *ngIf="this.f['AgDesc'].value == 1" class="form-row ">
+                        <div class="form-item">
+                            <label for="Descuento">Descuento</label>
+                            <input type="number" id="Descuento" formControlName="Descuento" />
+                        </div>
+
+                        <div class="form-item">
+                            <label for="fechaDescIni">Fecha inicio Desc</label>
+                            <input type="date" id="fechaDescIni" formControlName="fechaIniDes" />
+                        </div>
+
+                        <div class="form-item">
+                            <label for="fechaDescFin">Fecha Fin desc</label>
+                            <input type="date" id="fechaDescFin" formControlName="fechaFinDes" />
+                        </div>
+                    </fieldset>
+
+                </form>
+            </div>
+            <div class="p-dialog-footer">
+                <button pButton type="button" label="Cancelar" class="p-button-secondary" (click)="onCancel()"></button>
+                <button pButton type="submit" label="Guardar" class="p-button-primary"
+                    [disabled]="editProductForm.invalid"></button>
+            </div>
+        </div>
+    </form>
+</p-dialog>

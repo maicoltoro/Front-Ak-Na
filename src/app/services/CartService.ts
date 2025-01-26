@@ -12,7 +12,7 @@ export class CartService {
     constructor() { }
 
     private getCartItemCount(): number {
-        const products = JSON.parse(localStorage.getItem('product') || '[]');
+        const products = JSON.parse(sessionStorage.getItem('product') || '[]');
         return products.length;
     }
 

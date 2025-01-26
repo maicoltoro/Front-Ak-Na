@@ -1,1 +1,80 @@
-<p>login works!</p>
+<br><br><br>
+<form class="cont" [formGroup]="initialSection" [ngClass]="{ 's--signup': isSignupMode }">
+    <div class="form sign-in">
+        <h2>Bienvenido</h2>
+        <div>
+            <label>
+                <span>Correo</span>
+                <input type="email" formControlName="correo" autocomplete="email" placeholder="Ingresa tu correo" />
+                <div *ngIf="initialSection.get('correo')?.invalid && initialSection.get('correo')?.touched"
+                    class="error">
+                    Este campo es obligatorio
+                </div>
+            </label>
+        </div>
+        <label>
+            <span>Contraseña</span>
+            <input formControlName="contrasenna" autocomplete="new-password" placeholder="Ingresa tu contraseña"
+                type="password" />
+
+            <div *ngIf="initialSection.get('contrasenna')?.invalid && initialSection.get('contrasenna')?.touched"
+                class="error">
+                Este campo es obligatorio
+            </div>
+        </label>
+
+        <button class="submit" [disabled]="this.f['correo'].errors || this.f['contrasenna'].errors"
+            (click)="iniciarSesion()">Iniciar sesion</button>
+    </div>
+
+    <div class="sub-cont">
+        <div class="img">
+            <div class="img__text m--up">
+                <h2>¿Olvidaste la contraseña?</h2>
+                <p>¡Actualiza o restaura tu contraseña!</p>
+            </div>
+            <div class="img__text m--in">
+            </div>
+            <div class="img__btn" (click)="toggleSignupMode()">
+                <span class="m--up">Recuperar contraseña </span>
+                <span class="m--in">Iniciar sesion</span>
+            </div>
+        </div>
+        <div class="form sign-up">
+            <h2>Recupera tu contraseña</h2>
+            <label>
+                <span>Correo</span>
+                <input formControlName="correo" autocomplete="email" placeholder="Ingresa tu correo" type="email" />
+                <div *ngIf="initialSection.get('correo')?.invalid && initialSection.get('correo')?.touched"
+                    class="error">
+                    Este campo es obligatorio
+                </div>
+            </label>
+
+            <label>
+                <span>Nueva contraseña</span>
+                <input formControlName="nuevaContrasenna" autocomplete="new-password" placeholder="Ingresa tu contraseña"
+                    type="password" />
+
+                <div *ngIf="initialSection.get('nuevaContrasenna')?.invalid && initialSection.get('nuevaContrasenna')?.touched"
+                    class="error">
+                    Este campo es obligatorio
+                </div>
+            </label>
+
+            <label>
+                <span>Confirma la contraseña</span>
+                <input formControlName="ConfirmaCuevaContrasenna" autocomplete="new-password"
+                    placeholder="Ingresa tu contraseña" type="password" />
+
+                <div *ngIf="initialSection.get('ConfirmaCuevaContrasenna')?.invalid && initialSection.get('ConfirmaCuevaContrasenna')?.touched"
+                    class="error">
+                    Este campo es obligatorio
+                </div>
+            </label>
+            <button type="button" (click)="actualizaContrasenna()"
+                [disabled]="this.f['correo'].errors || this.f['ConfirmaCuevaContrasenna'].errors || this.f['nuevaContrasenna'].errors"
+                class="submit">Recuperar contraseña</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,125 @@
+.factura-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  background-color: #f4f4f9;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+.factura-lista {
+  width: 30%;
+  background-color: #ffffff;
+  padding: 15px;
+  overflow-y: auto;
+  border-right: 1px solid #ddd;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.factura-item {
+  background-color: #eaf4fc;
+  margin-bottom: 10px;
+  padding: 15px;
+  border: 1px solid #bcd1e6;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.factura-item:hover {
+  background-color: #d6e9fb;
+  transform: translateX(5px);
+}
+
+.factura-detalle-container {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.factura-detalle {
+  width: 60%;
+  background-color: #ffffff;
+  padding: 20px 25px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.factura-detalle h2,
+.factura-detalle h3 {
+  margin-top: 0;
+  text-align: center;
+  color: #333;
+  font-size: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.detalle-cliente .detalle-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.detalle-cliente .detalle-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.detalle-productos {
+  margin-top: 20px;
+}
+
+.detalle-productos h3 {
+  text-align: center;
+  font-size: 18px;
+  color: #007bff;
+}
+
+.producto-item {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.producto-contenido {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.producto-texto {
+  flex: 1;
+  font-size: 14px;
+  color: #333;
+}
+
+.producto-imagen {
+  margin-left: 20px;
+  flex-shrink: 0;
+}
+
+.producto-imagen img {
+  width: 120px;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 10px 0 0 0;
+}

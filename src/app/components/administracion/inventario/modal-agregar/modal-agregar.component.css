@@ -1,0 +1,16 @@
+.p-dialog-footer {
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.spinner{
+  z-index: 999150;
+  position: absolute;
+  top: 40%;
+  left: 42%;
+  height: 29%;
+  width: 30%;
+}

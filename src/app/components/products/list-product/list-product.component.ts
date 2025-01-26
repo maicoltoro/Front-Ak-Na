@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Marca } from 'src/app/Interfaces/Categories';
 import { Product } from 'src/app/Interfaces/Product';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
@@ -12,7 +12,7 @@ import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 export class ListProductComponent {
 
   products: Product[] | undefined;
-  productDatil :Product | undefined
+  productDatil: Product | undefined
   paginatedProducts: any[] = [];
   first: number = 0;
   rows: number = 5;
@@ -26,7 +26,6 @@ export class ListProductComponent {
   constructor(
     private endPointServices: EndpointService,
     private route: ActivatedRoute,
-    private router: Router
   ) { }
 
   paginate(event: any): void {
@@ -35,7 +34,7 @@ export class ListProductComponent {
     this.paginatedProducts = this.products!.slice(start, end);
   }
 
-  showDialog(prodcut : Product) {
+  showDialog(prodcut: Product) {
     this.productDatil = prodcut
     this.isModalVisible = true;
   }
@@ -45,8 +44,10 @@ export class ListProductComponent {
       this.idCategory = params.get('category')?.toString();
       this.endPointServices.getServices(`Product/${this.idCategory}`)
         .subscribe((data) => {
-          this.products = data
-          this.paginate({ first: this.first, rows: this.rows })
+          if (data.status == 200) {
+            this.products = data.response
+            this.paginate({ first: this.first, rows: this.rows })
+          }
         })
       this.getMetodos()
     });
@@ -66,7 +67,9 @@ export class ListProductComponent {
 
     this.endPointServices.getServices(`Product/FilterMarca/${this.idMarcas.toString()}/${this.idCategory}`)
       .subscribe((data) => {
-        this.paginatedProducts = data
+        if (data.status == 200) {
+          this.paginatedProducts = data.response
+        }
       })
   }
 
@@ -104,7 +107,9 @@ export class ListProductComponent {
   getMarcas() {
     this.endPointServices.getServices(`Categories/Marca/${this.idCategory}`)
       .subscribe((data => {
-        this.Marcas = data[0]
+        if (data.status) {
+          this.Marcas = data.response[0]
+        }
       }))
   }
 }

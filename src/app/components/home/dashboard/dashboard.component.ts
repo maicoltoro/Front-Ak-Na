@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Categories } from 'src/app/Interfaces/Categories';
-import { Product } from 'src/app/Interfaces/Product';
+import { ImagenesProyecto, Product } from 'src/app/Interfaces/Product';
 import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class DashboardComponent {
     UltimosProdcutos: Product[] = []
     productDatil: Product | undefined
     isModalVisible: boolean = false;
+    UrlImagenes: ImagenesProyecto[] | undefined
 
     responsiveOptions: any[] | undefined;
     constructor(
@@ -43,21 +44,35 @@ export class DashboardComponent {
     }
 
     async getMetodos() {
+        await this.getTraerImagenes(1)
         await this.getCategories()
         await this.UltimosProductos()
+    }
+
+    getTraerImagenes(id: number) {
+        this.endPoinServices.getServices(`google/TraerImagenes/${id}`)
+            .subscribe((data) => {
+                if (data.status == 200) {
+                    this.UrlImagenes = data.response
+                }
+            })
     }
 
     getCategories() {
         this.endPoinServices.getServices('Categories')
             .subscribe((data) => {
-                this.categories = data
+                if (data.status == 200) {
+                    this.categories = data.response
+                }
             })
     }
 
     UltimosProductos() {
         this.endPoinServices.getServices('Product/Ultimos/Productos')
             .subscribe((data) => {
-                this.UltimosProdcutos = data
+                if (data.status == 200) {
+                    this.UltimosProdcutos = data.response
+                }
             })
     }
 
@@ -68,5 +83,28 @@ export class DashboardComponent {
     showDialog(prodcut: Product) {
         this.productDatil = prodcut
         this.isModalVisible = true;
+    }
+
+    getBannerUrl() {
+        return this.UrlImagenes?.filter(e => e.LugarImagen === "Banner")[0]?.UrlImagen;
+    }
+
+    getLogoUrl() {
+        return this.UrlImagenes?.filter(e => e.LugarImagen === "Logo")[0]?.UrlImagen;
+    }
+
+    getHierbasUrl() {
+        return this.UrlImagenes?.filter(e => e.LugarImagen === "HierbasMedicinales")[0]?.UrlImagen;
+    }
+
+    getProductosUrl() {
+        return this.UrlImagenes?.filter(e => e.LugarImagen === "ProductosOrganicos")[0]?.UrlImagen;
+    }
+
+    getConsejeriaUrl() {
+        return this.UrlImagenes?.filter(e => e.LugarImagen === "Consejeria")[0]?.UrlImagen;
+    }
+    getSobreNosotrosUrl() {
+        return this.UrlImagenes?.filter(e => e.LugarImagen === "SobreNosotros")[0]?.UrlImagen;
     }
 }

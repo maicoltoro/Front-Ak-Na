@@ -1,0 +1,33 @@
+.layout {
+    display: flex;
+    height: 100vh;
+    background-color: #121212;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    padding: 20px;
+}
+
+.header img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+.header a {
+    text-decoration: none;
+    color: #ffffff;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.header a:hover {
+    color: #4caf50;
+}
+
+.content {
+    flex-grow: 1;
+    background-color: #181818;
+}

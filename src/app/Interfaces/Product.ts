@@ -12,7 +12,7 @@ export interface Product {
     Descripcion: string
     Activo: number
     imagen: string
-    Cantidad : number
+    Cantidad: number
 }
 
 export interface PageEvent {
@@ -24,17 +24,45 @@ export interface PageEvent {
 
 export interface Factura {
     ID?: number
-    Cantidad? : number
-    DiaEntrega? : number
-    Tiempo? : number
-    HoraInicio? : string
-    HoraFin? :string
-    Precio? :number
+    Cantidad?: number
+    DiaEntrega?: number
+    Tiempo?: number
+    HoraInicio?: string
+    HoraFin?: string
+    Precio?: number
     Imagen?: string
-    Nombre?:string
+    Nombre?: string
 }
 
-export interface TipoIdentificacion{
-    id : number
-    tipo : string
+export interface TipoIdentificacion {
+    id: number
+    tipo: string
+}
+
+export interface ImagenesProyecto {
+    ID: number
+    IdProyecto: number
+    LugarImagen: string
+    UrlImagen: string
+}
+
+export interface InformacionPedido {
+    IdPedido: number
+    NombreCompleto: string
+    Direccion: string
+    Correo: string
+    Celular: number
+    FechaPedido: Date
+    ValorCompra: number
+    Estado: string
+    DiaEntrega : string
+}
+
+export interface Informacionfactura {
+    IdPedido: number
+    Nombre: string
+    Imagen: string
+    Cantidad: number
+    DiaEntrega: string
+    Precio : number
 }

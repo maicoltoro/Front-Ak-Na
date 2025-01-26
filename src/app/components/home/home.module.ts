@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { LoginComponent } from './login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -20,7 +21,8 @@ import { ProductsModule } from '../products/products.module';
     CarouselModule,
     TagModule,
     DialogModule,
-    ProductsModule
+    ProductsModule,
+    ReactiveFormsModule
   ]
 })
 export class HomeModule { }
