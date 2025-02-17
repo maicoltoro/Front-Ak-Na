@@ -83,7 +83,7 @@ hr {
 
 .filtros-contenido input[type="text"],
 .filtros-contenido select,
-.filtros-contenido input[type="date"] {
+.filtros-contenido input[type="month"] {
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -92,7 +92,7 @@ hr {
 
 .filtros-contenido input[type="text"]:focus,
 .filtros-contenido select:focus,
-.filtros-contenido input[type="date"]:focus {
+.filtros-contenido input[type="month"]:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
