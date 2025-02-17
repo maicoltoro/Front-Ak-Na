@@ -19,6 +19,7 @@ export class PedidosComponent {
   pedidosFiltrados: InformacionPedido[] | undefined;
 
   filtroNombre: string = '';
+  filtroMes: string = '';
   filtroEstado: string = '';
   filtroFecha: string = '';
 
@@ -57,7 +58,7 @@ export class PedidosComponent {
   }
 
   getmetodoFactura() {
-    this.endPoinService.postServices('Inventario/TraerInformacionPedido', { mes: 0 })
+    this.endPoinService.postServices('Inventario/TraerInformacionPedido', { mes: 0 , anno : 0})
       .subscribe((data) => {
         if (data.status == 200) {
           this.pedidos = data.responsePedido
@@ -92,6 +93,21 @@ export class PedidosComponent {
       this.pedidoSeleccionada = this.pedidosFiltrados[indice]
       this.facturaSeleccionada = this.facturas?.filter(e => e.IdPedido == this.pedidoSeleccionada?.IdPedido)
     }
+  }
+
+  filtarMes(){
+    const obj ={
+      mes : this.filtroMes.split("-")[1],
+      anno : this.filtroMes.split("-")[0]
+    }
+    this.endPoinService.postServices('Inventario/TraerInformacionPedido', obj)
+    .subscribe((data) => {
+      if (data.status == 200) {
+        this.pedidos = data.responsePedido
+        this.facturas = data.responseFactura
+        this.pedidosFiltrados = data.responsePedido
+      }
+    })
   }
 
   filtrarPedidos() {

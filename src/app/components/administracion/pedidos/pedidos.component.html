@@ -4,7 +4,9 @@
     <h3>Filtros</h3>
     <div class="filtros-contenido">
       <input type="text" placeholder="Buscar por nombre..." [(ngModel)]="filtroNombre" (input)="filtrarPedidos()" />
-      <input type="text" [(ngModel)]="filtroFecha" placeholder="Buscar por numero del pedido" (input)="filtrarPedidos()" />
+      <input type="month" [(ngModel)]="filtroMes" (input)="filtarMes()" />
+      <input type="text" [(ngModel)]="filtroFecha" placeholder="Buscar por numero del pedido"
+        (input)="filtrarPedidos()" />
       <select [(ngModel)]="filtroEstado" (change)="filtrarPedidos()">
         <option value="">Todos los estados</option>
         <option value="Pendiente">Pendiente</option>

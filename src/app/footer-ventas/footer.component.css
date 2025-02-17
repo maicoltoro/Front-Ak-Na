@@ -86,3 +86,7 @@
 .footer-socials a:hover {
   transform: scale(1.1);
 }
+
+::ng-deep .p-menubar .p-menuitem-badge{
+  background :#ff5722
+}

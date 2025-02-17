@@ -5,7 +5,7 @@
     </div>
     <div class="product-details">
       <h4>{{product?.Nombre}} </h4>
-      <p>$ {{product.Precio | number:'1.0-0'}} </p>
+      <p>$ {{product.Precio * product.Cantidad | number:'1.0-0'}} </p>
       <div class="quantity-control">
         <button (click)="decreaseQuantity(product)">-</button>
         <input type="number" [value]="product?.Cantidad" />
