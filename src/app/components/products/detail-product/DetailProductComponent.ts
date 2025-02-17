@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import {  Product } from 'src/app/Interfaces/Product';
+import { Product } from 'src/app/Interfaces/Product';
 import { CartService } from 'src/app/services/CartService';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -11,16 +12,22 @@ import { CartService } from 'src/app/services/CartService';
 export class DetailProductComponent {
 
   totalProducdts: Array<Product> = [];
-  @Input() product: Product | undefined;
-  carrito: boolean = false;
+  @Input() product: Product | null = null;
   quantity: number = 1;
+  carrito: boolean = false;
+  valorDescuento  = 0
 
   constructor(
     private cartService: CartService
-  ) {}
+  ) { }
 
-  ngOnInit() {
+  ngOnChanges() {
     this.totalProducdts.push(JSON.parse(sessionStorage.getItem('product') || '[]'))
+    this.valorDescuento = 0
+    this.quantity = 1;
+    if(this.product){
+      this.valorDescuento = (this.product.Precio - (this.product.Precio * (this.product.Cantidaddescuento / 100)))
+    }
   }
 
   ActivarCarrito() {
@@ -30,6 +37,7 @@ export class DetailProductComponent {
       ...this.product,
       Cantidad: this.quantity
     })
+    if(this.valorDescuento != 0) initialProduct[initialProduct.length -1].Precio = this.valorDescuento
     sessionStorage.setItem('product', JSON.stringify(initialProduct));
     const storedProduct = sessionStorage.getItem('product');
     if (storedProduct) {
@@ -40,7 +48,19 @@ export class DetailProductComponent {
   }
 
   increaseQuantity() {
-    this.quantity++;
+    let CantidadPermitida = this.product?.Inventario[0].cantidad
+    if (CantidadPermitida) {
+      CantidadPermitida -=1 
+      if (CantidadPermitida > this.quantity) {
+        this.quantity++;
+      } else {
+        Swal.fire({
+          title: 'Lo sentimos ',
+          icon: 'info',
+          text: `No puedes pedir mas de ${CantidadPermitida} ya que es el limite permitido de este producto por el momento`
+        })
+      }
+    }
   }
 
   cerrarCarro(event: boolean) {

@@ -26,3 +26,9 @@
 ::ng-deep .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-icon, .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-icon{
     color: white ;
 }
+
+.header {
+    position: fixed;
+    width: 100%;
+    z-index: 1000; 
+}

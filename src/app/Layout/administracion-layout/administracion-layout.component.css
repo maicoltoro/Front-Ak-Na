@@ -30,4 +30,6 @@
 .content {
     flex-grow: 1;
     background-color: #181818;
+    overflow-y: auto;
+    scrollbar-width: none;
 }

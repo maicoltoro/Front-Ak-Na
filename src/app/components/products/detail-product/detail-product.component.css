@@ -95,3 +95,16 @@
   color: #343a40;
   line-height: 1.5;
 }
+
+
+.original-price {
+  text-decoration: line-through;
+  color: #888;
+  margin-right: 10px;
+}
+
+.discounted-price {
+  color: red;
+  font-weight: bold;
+  font-size: 1.5rem;
+}

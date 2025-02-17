@@ -125,7 +125,7 @@ export class ModalAgregarComponent {
       formData.append('fechaFin', this.f['fechaFin'].value);
       formData.append('Descripcion', this.f['descripcion'].value);
       formData.append('cantidad', this.f['cantidad'].value);
-
+      formData.append('proyecto', 'Ak-Na'); // cambiar para que sea dinamico el tema del aplicativo
       if (nombreCategoria) {
         formData.append('carpeta', nombreCategoria);
       }

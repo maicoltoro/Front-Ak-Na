@@ -12,7 +12,7 @@ import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 export class DashboardComponent {
     categories: Categories[] | undefined
     UltimosProdcutos: Product[] = []
-    productDatil: Product | undefined
+    productDatil: Product | null = null
     isModalVisible: boolean = false;
     UrlImagenes: ImagenesProyecto[] | undefined
 

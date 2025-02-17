@@ -1,75 +1,9 @@
 .factura-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   height: 100vh;
-  background-color: #f4f4f9;
   font-family: 'Arial', sans-serif;
   color: #333;
-}
-
-.factura-lista {
-  width: 30%;
-  background-color: #ffffff;
-  padding: 15px;
-  overflow-y: auto;
-  border-right: 1px solid #ddd;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.factura-item {
-  background-color: #eaf4fc;
-  margin-bottom: 10px;
-  padding: 15px;
-  border: 1px solid #bcd1e6;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.3s ease;
-}
-
-.factura-item:hover {
-  background-color: #d6e9fb;
-  transform: translateX(5px);
-}
-
-.factura-detalle-container {
-  width: 70%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 20px;
-  overflow-y: auto;
-}
-
-.factura-detalle {
-  width: 60%;
-  background-color: #ffffff;
-  padding: 20px 25px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.factura-detalle h2,
-.factura-detalle h3 {
-  margin-top: 0;
-  text-align: center;
-  color: #333;
-  font-size: 20px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
-  margin-bottom: 15px;
-}
-
-.detalle-cliente .detalle-item {
-  display: flex;
-  justify-content: space-between;
-  margin: 8px 0;
-  font-size: 14px;
-}
-
-.detalle-cliente .detalle-label {
-  font-weight: bold;
-  color: #555;
 }
 
 .detalle-productos {
@@ -122,4 +56,107 @@ hr {
   border: none;
   border-top: 1px solid #ddd;
   margin: 10px 0 0 0;
+}
+
+.factura-main {
+  display: flex;
+  flex-direction: row;
+  height: 82%;
+}
+
+.factura-filtros {
+  padding: 1rem;
+  border-radius: 8px;
+  color: white;
+  gap: 4rem;
+  display: flex;
+  margin-bottom: 1rem;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.filtros-contenido {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filtros-contenido input[type="text"],
+.filtros-contenido select,
+.filtros-contenido input[type="date"] {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.filtros-contenido input[type="text"]:focus,
+.filtros-contenido select:focus,
+.filtros-contenido input[type="date"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.factura-lista {
+  width: 30%;
+  background-color: #181818;
+  padding: 15px;
+  overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  left: 6%;
+  scrollbar-width: none;
+  position: relative;
+}
+
+.factura-item.seleccionado {
+  background-color: #007bff;
+  color: #ffffff;
+  border-color: #0056b3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.factura-item {
+  background-color: #eaf4fc;
+  margin-bottom: 10px;
+  padding: 15px;
+  border: 1px solid #bcd1e6;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.factura-item:hover {
+  background-color: #d6e9fb;
+  transform: translateX(5px);
+}
+
+.factura-detalle-container {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.factura-detalle {
+  width: 60%;
+  background-color: #ffffff;
+  padding: 20px 25px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.factura-detalle h2,
+.factura-detalle h3 {
+  margin-top: 0;
+  text-align: center;
+  color: #333;
+  font-size: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
 }
