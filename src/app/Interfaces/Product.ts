@@ -13,6 +13,7 @@ export interface Product {
     Activo: number
     imagen: string
     Cantidad: number
+    Inventario : Inventario[]
 }
 
 export interface PageEvent {
@@ -65,4 +66,11 @@ export interface Informacionfactura {
     Cantidad: number
     DiaEntrega: string
     Precio : number
+}
+
+export interface Inventario{
+    Id: number
+    idProducto : number
+    cantidad : number
+    FechaActualizacion : Date
 }

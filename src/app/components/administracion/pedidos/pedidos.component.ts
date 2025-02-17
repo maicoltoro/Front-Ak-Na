@@ -15,6 +15,12 @@ export class PedidosComponent {
   facturas: Informacionfactura[] | undefined
   facturaSeleccionada: Informacionfactura[] | undefined
   items: MenuItem[] | undefined;
+  indiceSeleccionado: number | null = null;
+  pedidosFiltrados: InformacionPedido[] | undefined;
+
+  filtroNombre: string = '';
+  filtroEstado: string = '';
+  filtroFecha: string = '';
 
   constructor(
     private endPoinService: EndpointService,
@@ -51,17 +57,25 @@ export class PedidosComponent {
   }
 
   getmetodoFactura() {
-    this.endPoinService.postServices('Inventario/TraerInformacionPedido', { mes: 11 })
+    this.endPoinService.postServices('Inventario/TraerInformacionPedido', { mes: 0 })
       .subscribe((data) => {
         if (data.status == 200) {
           this.pedidos = data.responsePedido
           this.facturas = data.responseFactura
+          this.pedidosFiltrados = data.responsePedido
         }
       })
   }
 
   save(estado: number) {
-    this.endPoinService.postServices('Inventario/CambiarEstado', { pedidos: this.pedidoSeleccionada?.IdPedido, idEstado: estado })
+    let obj = {
+      pedidos: this.pedidoSeleccionada?.IdPedido,
+      idEstado: estado,
+      estado : (estado == 2) ? 'Pedido cancelado' :  (estado == 4) ? 'pedido en camino' : 'Pedido entregado',
+      nombreUsuario: this.pedidoSeleccionada?.NombreCompleto,
+      correo: this.pedidoSeleccionada?.Correo
+    }
+    this.endPoinService.postServices('Inventario/CambiarEstado', obj)
       .subscribe((data) => {
         if (data.status == 200) {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Estado del pedido actualizado' });
@@ -73,9 +87,26 @@ export class PedidosComponent {
   }
 
   mostrarDetalle(indice: number) {
-    if (this.pedidos) {
-      this.pedidoSeleccionada = this.pedidos[indice]
+    if (this.pedidosFiltrados) {
+      this.indiceSeleccionado = indice;
+      this.pedidoSeleccionada = this.pedidosFiltrados[indice]
       this.facturaSeleccionada = this.facturas?.filter(e => e.IdPedido == this.pedidoSeleccionada?.IdPedido)
     }
+  }
+
+  filtrarPedidos() {
+    this.pedidosFiltrados = this.pedidos?.filter((pedido) => {
+      const cumpleNombre =
+        !this.filtroNombre ||
+        pedido.NombreCompleto.toLowerCase().includes(this.filtroNombre.toLowerCase());
+
+      const cumpleEstado = !this.filtroEstado || pedido.Estado === this.filtroEstado;
+
+      const cumpleFecha =
+        !this.filtroFecha ||
+        pedido.IdPedido.toString() === this.filtroFecha;
+
+      return cumpleNombre && cumpleEstado && cumpleFecha;
+    });
   }
 }

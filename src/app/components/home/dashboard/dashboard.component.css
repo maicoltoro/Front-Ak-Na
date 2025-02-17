@@ -2,13 +2,6 @@
     position: relative;
     left: 45%
 }
-
-:host {
-    display: block;
-    height: 139rem;
-    position: relative;
-}
-
 .products-section {
     text-align: center;
     margin: 20px;
@@ -35,7 +28,7 @@
 }
 
 .product-card img {
-    max-width: 100%;
+    max-width: 55%;
     height: auto;
     border-radius: 8px;
 }

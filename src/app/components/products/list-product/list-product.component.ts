@@ -12,7 +12,7 @@ import { EndpointService } from 'src/app/services/endpoint/endpoint.service';
 export class ListProductComponent {
 
   products: Product[] | undefined;
-  productDatil: Product | undefined
+  productDatil: Product | null = null
   paginatedProducts: any[] = [];
   first: number = 0;
   rows: number = 5;
@@ -22,6 +22,7 @@ export class ListProductComponent {
   valorMaximo: number = 0
   valorMinimo: number = 0
   isModalVisible: boolean = false;
+  quantity: number = 1;
 
   constructor(
     private endPointServices: EndpointService,

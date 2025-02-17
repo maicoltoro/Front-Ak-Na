@@ -5,7 +5,22 @@
 
   <div class="product-details">
     <h1 class="product-title">{{ product?.Nombre }}</h1>
-    <h2 class="product-price">${{product?.Precio | number:'1.0-0' }}</h2>
+
+    <div *ngIf="product && product.Descuento > 0; else noDiscount">
+      <h2 class="product-price">
+        <span class="original-price" style="text-decoration: line-through; color: #888;">
+          ${{ product.Precio | number:'1.0-0' }}
+        </span>
+        <span class="discounted-price" style="color: red; font-weight: bold;">
+          ${{ valorDescuento | number:'1.0-0' }}
+        </span>
+      </h2>
+      <h5>Este producto tiene el {{ product.Cantidaddescuento }}% de descuento</h5>
+    </div>
+    <ng-template #noDiscount>
+      <h2 class="product-price">${{ product?.Precio | number:'1.0-0' }}</h2>
+    </ng-template>
+
     <p class="product-availability">
       <i class="pi pi-check-circle" style="color: green;"></i> Disponible en tienda y listo para enviar
     </p>
@@ -16,7 +31,8 @@
         <input type="text" class="quantity-input" [(ngModel)]="quantity" />
         <button class="quantity-btn" (click)="increaseQuantity()">+</button>
       </div>
-      <button pButton label="Agregar al carrito" icon="pi pi-shopping-cart" (click)="ActivarCarrito()" class="add-to-cart-btn"></button>
+      <button pButton label="Agregar al carrito" icon="pi pi-shopping-cart" (click)="ActivarCarrito()"
+        class="add-to-cart-btn"></button>
     </div>
 
     <p class="product-description">
@@ -24,11 +40,3 @@
     </p>
   </div>
 </div>
-
-
-<!-- <div *ngIf="this.totalProducdts" class="card flex justify-content-center">
-  <p-sidebar [(visible)]="carrito" position="right">
-    <app-menu-list-cart [carrito]="carrito" (cerrarCarrito)="cerrarCarro($event)"
-      [listProduct]="this.totalProducdts[0]"></app-menu-list-cart>
-  </p-sidebar>
-</div> -->

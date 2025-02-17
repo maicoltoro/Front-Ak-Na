@@ -1,65 +1,82 @@
 <div class="factura-container">
-  <div class="factura-lista">
-    <div class="factura-item" *ngFor="let pedido of pedidos; let i = index" (click)="mostrarDetalle(i)">
-      <h3>{{ pedido.NombreCompleto }}</h3>
-      <p><strong>Correo:</strong> {{ pedido.Correo }}</p>
-      <p><strong>Dirección:</strong> {{ pedido.Direccion }}</p>
-      <p><strong>Estado:</strong> {{ pedido.Estado }}</p>
+
+  <div class="factura-filtros">
+    <h3>Filtros</h3>
+    <div class="filtros-contenido">
+      <input type="text" placeholder="Buscar por nombre..." [(ngModel)]="filtroNombre" (input)="filtrarPedidos()" />
+      <input type="text" [(ngModel)]="filtroFecha" placeholder="Buscar por numero del pedido" (input)="filtrarPedidos()" />
+      <select [(ngModel)]="filtroEstado" (change)="filtrarPedidos()">
+        <option value="">Todos los estados</option>
+        <option value="Pendiente">Pendiente</option>
+        <option value="En camino">En camino</option>
+        <option value="Entregado">Entregado</option>
+      </select>
     </div>
   </div>
 
-  <div class="factura-detalle-container" *ngIf="pedidoSeleccionada">
-    <div class="factura-detalle">
-      <div class="detalle-cliente">
-        <h2>Detalles del Cliente</h2>
-        <div class="detalle-item">
-          <span class="detalle-label">ID:</span>
-          <span>{{ pedidoSeleccionada.IdPedido }}</span>
-        </div>
-        <div class="detalle-item">
-          <span class="detalle-label">Nombre:</span>
-          <span>{{ pedidoSeleccionada.NombreCompleto }}</span>
-        </div>
-        <div class="detalle-item">
-          <span class="detalle-label">Correo:</span>
-          <span>{{ pedidoSeleccionada.Correo }}</span>
-        </div>
-        <div class="detalle-item">
-          <span class="detalle-label">Dirección:</span>
-          <span>{{ pedidoSeleccionada.Direccion }}</span>
-        </div>
-        <div class="detalle-item">
-          <span class="detalle-label">Fecha entrega:</span>
-          <span>{{ pedidoSeleccionada.DiaEntrega }}</span>
-        </div>
-        <div class="detalle-item">
-          <span class="detalle-label">Total:</span>
-          <span>{{ pedidoSeleccionada.ValorCompra | currency }}</span>
-        </div>
+  <div class="factura-main">
+    <div class="factura-lista">
+      <div class="factura-item" *ngFor="let pedido of pedidosFiltrados; let i = index"
+        [class.seleccionado]="i === indiceSeleccionado" (click)="mostrarDetalle(i)">
+        <h3>{{ pedido.NombreCompleto }}</h3>
+        <p><strong>Correo : </strong> {{ pedido.Correo }}</p>
+        <p><strong>Dirección : </strong> {{ pedido.Direccion }}</p>
+        <p><strong>Estado : </strong> {{ pedido.Estado }}</p>
       </div>
+    </div>
 
-      <div class="detalle-productos">
-        <h3>Productos</h3>
-        <div class="producto-item" *ngFor="let producto of facturaSeleccionada">
-          <div class="producto-contenido">
-            <div class="producto-texto">
-              <p><strong>Nombre:</strong> {{ producto.Nombre }}</p>
-              <p><strong>Cantidad:</strong> {{ producto.Cantidad }}</p>
-              <p><strong>Precio:</strong> $ {{ producto.Precio | number }}</p>
+    <div class="factura-detalle-container" *ngIf="pedidoSeleccionada">
+      <div class="factura-detalle">
+        <div class="detalle-cliente">
+          <h2>Detalles del Cliente</h2>
+          <div class="detalle-item">
+            <strong><span class="detalle-label">Numero de pedido : </span></strong>
+            <span>{{ pedidoSeleccionada.IdPedido }}</span>
+          </div>
+          <div class="detalle-item">
+            <strong><span class="detalle-label">Nombre : </span></strong>
+            <span>{{ pedidoSeleccionada.NombreCompleto }}</span>
+          </div>
+          <div class="detalle-item">
+            <strong><span class="detalle-label">Correo : </span></strong>
+            <span>{{ pedidoSeleccionada.Correo }}</span>
+          </div>
+          <div class="detalle-item">
+            <strong><span class="detalle-label">Dirección : </span></strong>
+            <span>{{ pedidoSeleccionada.Direccion }}</span>
+          </div>
+          <div class="detalle-item">
+            <strong><span class="detalle-label">Fecha entrega : </span></strong>
+            <span>{{ pedidoSeleccionada.DiaEntrega }}</span>
+          </div>
+          <div class="detalle-item">
+            <strong><span class="detalle-label">Total : </span></strong>
+            <span> $ {{ pedidoSeleccionada.ValorCompra | number }}</span>
+          </div>
+        </div>
+
+        <div class="detalle-productos">
+          <h3>Productos</h3>
+          <div class="producto-item" *ngFor="let producto of facturaSeleccionada">
+            <div class="producto-contenido">
+              <div class="producto-texto">
+                <p><strong>Nombre : </strong> {{ producto.Nombre }}</p>
+                <p><strong>Cantidad : </strong> {{ producto.Cantidad }}</p>
+                <p><strong>Precio : </strong> $ {{ producto.Precio | number }}</p>
+              </div>
+              <div class="producto-imagen">
+                <img [src]="producto.Imagen" alt="Imagen del producto" />
+              </div>
             </div>
-            <div class="producto-imagen">
-              <img [src]="producto.Imagen" alt="Imagen del producto" />
-            </div>
+            <hr />
           </div>
           <hr />
-        </div>
-        <hr />
-        <br>
-        <div class="producto-imagen">
-          <p-toast />
-          <p-splitButton label="Actualizar estado" [model]="items!" />
+          <br />
+          <div class="producto-imagen">
+            <p-toast></p-toast>
+            <p-splitButton label="Actualizar estado" [model]="items!"></p-splitButton>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
