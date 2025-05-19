@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class ModalEditarComponent {
 
   @Input() selectedProduct: Sp_traerInventario | undefined;
-  @Output()  ocultarModal = new EventEmitter<boolean>()
+  @Output() ocultarModal = new EventEmitter<boolean>()
   displayModal: boolean = true;
 
   editProductForm!: FormGroup;
@@ -83,14 +83,26 @@ export class ModalEditarComponent {
                 title: 'Correcto',
                 icon: 'success',
                 text: 'El producto se actualizo de manera correcta'
+              }).then(()=>{
+                location.reload()
               })
             } else {
               Swal.fire({
                 title: 'Lo siento',
                 icon: 'warning',
                 text: 'Sucedio un error, por favor volver a intentar'
+              }).then(()=>{
+                location.reload()
               })
             }
+          } else {
+            Swal.fire({
+              title: 'Error',
+              icon: 'warning',
+              text: `sucedio un erro ${data.response}`
+            }).then(()=>{
+              location.reload()
+            })
           }
         })
       this.displayModal = false;
