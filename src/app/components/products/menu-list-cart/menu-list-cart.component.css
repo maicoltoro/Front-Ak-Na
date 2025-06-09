@@ -1,4 +1,4 @@
-/* Modal */
+/* 
 .shopping-cart-modal {
   font-family: Arial, sans-serif;
   width: 300px;
@@ -10,7 +10,6 @@
   position: relative;
 }
 
-/* Botón cerrar */
 .close-modal {
   position: absolute;
   top: 10px;
@@ -21,7 +20,6 @@
   cursor: pointer;
 }
 
-/* Producto */
 .cart-item {
   display: flex;
   gap: 10px;
@@ -76,7 +74,6 @@
   border-radius: 4px;
 }
 
-/* Total y botones */
 .cart-footer {
   margin-top: 10px;
 }
@@ -134,4 +131,4 @@
 }
 .listaProductos{
   z-index: 20;
-}
+} */

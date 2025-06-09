@@ -1,16 +1,19 @@
 <div>
-    <img [src]="getBannerUrl()" alt="" width="100%">
-    <div class="container">
+    <img [src]="getBannerUrl()" alt="" class="w-full" />
+
+    <div class="container mx-auto px-4">
+        <!-- CATEGORIAS -->
         <div>
-            <h2 class="mt-3 mb-3 text-center">CATEGORIAS</h2>
+            <h2 class="mt-8 mb-8 text-2xl font-bold text-center text-gray-800">CATEGORIAS</h2>
             <p-carousel [value]="categories!" [numVisible]="3" [numScroll]="3" [circular]="true"
                 [responsiveOptions]="responsiveOptions!" [autoplayInterval]="3000">
-                >
                 <ng-template let-category pTemplate="item">
-                    <div (click)="redirectCategory(category)" class="border-1 surface-border border-round m-2 p-3">
+                    <div (click)="redirectCategory(category)"
+                        class="border border-gray-300 rounded-lg m-2 p-4 cursor-pointer transition hover:shadow-md">
                         <div class="mb-3">
-                            <div class="relative mx-auto" style="cursor: pointer;">
-                                <img [src]="category.imagen" [alt]="category.Nombre" width="200px" height="200px" />
+                            <div class="relative mx-auto">
+                                <img [src]="category.imagen" [alt]="category.Nombre"
+                                    class="w-[200px] h-[200px] object-cover mx-auto" />
                             </div>
                         </div>
                     </div>
@@ -18,26 +21,30 @@
             </p-carousel>
         </div>
 
-        <div class="products-section">
-            <h2>Ultimos productos agregados</h2>
-            <div class="products-container">
-                <div class="product-card" *ngFor="let product of UltimosProdcutos">
-                    <img [src]="product.imagen" [alt]="product.Nombre" style="cursor: pointer;"
+        <!-- PRODUCTOS -->
+        <div class="mt-12 text-center">
+            <h2 class="text-2xl font-bold text-gray-800">Últimos productos agregados</h2>
+            <div class="grid gap-6 mt-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <div class="bg-white border border-gray-300 rounded-lg p-4 transition hover:shadow-lg"
+                    *ngFor="let product of UltimosProdcutos">
+                    <img [src]="product.imagen" [alt]="product.Nombre"
+                        class="mx-auto mb-4 rounded-lg w-2/3 object-cover cursor-pointer"
                         (click)="showDialog(product)" />
-                    <h3>{{ product.Nombre }}</h3>
-                    <p class="new-price">${{product.Precio | number:'1.0-0' }}</p>
+                    <h3 class="text-lg font-semibold text-gray-800">{{ product.Nombre }}</h3>
+                    <p class="text-red-600 text-xl font-bold">${{ product.Precio | number: '1.0-0' }}</p>
                 </div>
             </div>
         </div>
 
-        <div class="about-section">
-            <div class="about-container">
-                <div class="about-image">
-                    <img [src]="getSobreNosotrosUrl()" alt="Naturaleza" />
+        <!-- SOBRE NOSOTROS -->
+        <div class="bg-gray-100 mt-16 py-10 px-4 text-center">
+            <div class="flex flex-wrap justify-center gap-8 items-center">
+                <div class="max-w-md">
+                    <img [src]="getSobreNosotrosUrl()" alt="Naturaleza" class="rounded-lg w-full" />
                 </div>
-                <div class="about-text">
-                    <h2>Sobre Nosotros</h2>
-                    <p>
+                <div class="max-w-xl text-left">
+                    <h2 class="text-2xl font-bold text-orange-600 mb-4">Sobre Nosotros</h2>
+                    <p class="text-gray-700 leading-relaxed">
                         En Tienda Naturista Hadas y Duendes, buscamos evocar la conexión con la madre naturaleza y el
                         bienestar integral del ser.
                         Combinamos elementos naturales y simbólicos de manera armónica para ofrecerte productos que
@@ -47,32 +54,42 @@
             </div>
         </div>
 
-        <div class="services-section">
-            <h2>SERVICIOS</h2>
-            <div class="services-container">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <img [src]="getHierbasUrl()" />
+        <!-- SERVICIOS -->
+        <div class="bg-white text-center py-12 px-4">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 relative">
+                SERVICIOS
+                <span class="block w-12 h-1 bg-orange-500 mx-auto mt-2"></span>
+            </h2>
+            <div class="flex flex-wrap justify-center gap-8">
+                <!-- Servicio 1 -->
+                <div class="max-w-xs text-center">
+                    <div class="mb-4">
+                        <img [src]="getHierbasUrl()" class="w-24 h-24 rounded-full mx-auto" />
                     </div>
-                    <h3>Hierbas medicinales</h3>
-                    <p>Ofrecemos una amplia variedad de hierbas medicinales para mejorar tu salud y bienestar integral
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Hierbas medicinales</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Ofrecemos una amplia variedad de hierbas medicinales para mejorar tu salud y bienestar integral.
                     </p>
                 </div>
-
-                <div class="service-card">
-                    <div class="service-icon">
-                        <img [src]="getProductosUrl()" />
+                <!-- Servicio 2 -->
+                <div class="max-w-xs text-center">
+                    <div class="mb-4">
+                        <img [src]="getProductosUrl()" class="w-24 h-24 rounded-full mx-auto" />
                     </div>
-                    <h3>Productos organicos</h3>
-                    <p>Nuestros productos organicos son ideales para llevar un estilo de vida saludable y sostenible</p>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Productos orgánicos</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Nuestros productos orgánicos son ideales para llevar un estilo de vida saludable y sostenible.
+                    </p>
                 </div>
-
-                <div class="service-card">
-                    <div class="service-icon">
-                        <img [src]="getConsejeriaUrl()" />
+                <!-- Servicio 3 -->
+                <div class="max-w-xs text-center">
+                    <div class="mb-4">
+                        <img [src]="getConsejeriaUrl()" class="w-24 h-24 rounded-full mx-auto" />
                     </div>
-                    <h3>Consejeria holistica</h3>
-                    <p>Proporcionamos asesoramiento para ayudarte a encontrar un equilibrio emocional y espiritual</p>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Consejería holística</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Proporcionamos asesoramiento para ayudarte a encontrar un equilibrio emocional y espiritual.
+                    </p>
                 </div>
             </div>
         </div>

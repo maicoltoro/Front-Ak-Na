@@ -1,4 +1,4 @@
-/* Contenedor principal */
+/* 
 .container {
     display: flex;
     gap: 20px;
@@ -6,7 +6,6 @@
     margin-top: 70px;
   }
   
-  /* Estilos para el aside (filtros) */
   .filters {
     width: 25%;
     background-color: #f8f9fa;
@@ -38,7 +37,6 @@
     margin-bottom: 5px;
   }
   
-  /* Estilos para los productos */
   .products {
     width: 75%;
     display: grid;
@@ -142,4 +140,4 @@
     font-size: 16px;
     color: #555;
   }
-  
+   */
