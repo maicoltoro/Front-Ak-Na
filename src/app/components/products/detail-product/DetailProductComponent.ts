@@ -45,6 +45,11 @@ export class DetailProductComponent {
       this.carrito = true;
       this.cartService.updateCartCount();
     }
+    Swal.fire({
+      title:'OK',
+      icon:'success',
+      text:'Producto agregado al carrito'
+    })
   }
 
   increaseQuantity() {

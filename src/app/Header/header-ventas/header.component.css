@@ -27,6 +27,61 @@
     color: white ;
 }
 
+@media screen and (max-width: 960px) {
+    ::ng-deep .p-menubar .p-menubar-root-list {
+        background: #20242c !important;
+    }
+}
+
+.float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 3px #999;
+    z-index: 100;
+  }
+  
+  .my-float {
+    margin-top: 16px;
+  }
+  
+  
+  .floating-icons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  .floating-icons a {
+    display: block;
+    margin-bottom: 10px;
+    width: 50px;
+    height: 50px;
+    background: #25d366;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+  }
+  
+  .floating-icons a.chat {
+    background: #ff6d00;
+  }
+  
+  .floating-icons a:hover {
+    transform: scale(1.1);
+  }
 .header {
     position: fixed;
     width: 100%;

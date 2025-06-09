@@ -1,41 +1,44 @@
-<div class="product-container">
-  <div class="product-image">
-    <img [src]="product?.imagen" alt="{{ product?.Nombre }}" />
+<div class="flex flex-col md:flex-row gap-6 p-4 md:p-8 bg-gray-100 rounded-lg max-w-5xl mx-auto shadow-md">
+  <div class="w-full md:w-[400px]">
+    <img [src]="product?.imagen" alt="{{ product?.Nombre }}" class="w-full h-auto rounded-lg" />
   </div>
 
-  <div class="product-details">
-    <h1 class="product-title">{{ product?.Nombre }}</h1>
+  <div class="flex-1 w-full">
+    <h1 class="text-xl md:text-2xl font-bold mb-2">{{ product?.Nombre }}</h1>
 
     <div *ngIf="product && product.Descuento > 0; else noDiscount">
-      <h2 class="product-price">
-        <span class="original-price" style="text-decoration: line-through; color: #888;">
+      <h2 class="text-lg md:text-xl font-bold text-red-600 mb-2">
+        <span class="line-through text-gray-500 mr-2">
           ${{ product.Precio | number:'1.0-0' }}
         </span>
-        <span class="discounted-price" style="color: red; font-weight: bold;">
+        <span class="text-red-600 font-bold text-xl md:text-2xl">
           ${{ valorDescuento | number:'1.0-0' }}
         </span>
       </h2>
-      <h5>Este producto tiene el {{ product.Cantidaddescuento }}% de descuento</h5>
+      <h5 class="text-sm text-gray-700 mb-2">Este producto tiene el {{ product.Cantidaddescuento }}% de descuento</h5>
     </div>
+
     <ng-template #noDiscount>
-      <h2 class="product-price">${{ product?.Precio | number:'1.0-0' }}</h2>
+      <h2 class="text-lg md:text-xl font-bold text-red-600 mb-2">${{ product?.Precio | number:'1.0-0' }}</h2>
     </ng-template>
 
-    <p class="product-availability">
-      <i class="pi pi-check-circle" style="color: green;"></i> Disponible en tienda y listo para enviar
+    <p class="text-sm text-gray-600 mb-4 flex items-center">
+      <i class="pi pi-check-circle text-green-600 mr-1"></i>
+      Disponible en tienda y listo para enviar
     </p>
 
-    <div class="product-quantity-cart">
-      <div class="quantity-controls">
-        <button class="quantity-btn" (click)="decreaseQuantity()">-</button>
-        <input type="text" class="quantity-input" [(ngModel)]="quantity" />
-        <button class="quantity-btn" (click)="increaseQuantity()">+</button>
+    <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
+      <div class="flex items-center border rounded w-fit mx-auto sm:mx-0">
+        <button class="bg-gray-200 px-3 py-1 hover:bg-gray-300" (click)="decreaseQuantity()">-</button>
+        <input type="text" class="w-12 text-center border-x px-2 py-1" [(ngModel)]="quantity" />
+        <button class="bg-gray-200 px-3 py-1 hover:bg-gray-300" (click)="increaseQuantity()">+</button>
       </div>
       <button pButton label="Agregar al carrito" icon="pi pi-shopping-cart" (click)="ActivarCarrito()"
-        class="add-to-cart-btn"></button>
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full sm:w-auto">
+      </button>
     </div>
 
-    <p class="product-description">
+    <p class="text-sm md:text-base text-gray-800 leading-relaxed">
       {{ product?.Descripcion }}
     </p>
   </div>

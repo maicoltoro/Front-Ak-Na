@@ -1,30 +1,49 @@
-<div class="listaProductos">
-  <div *ngFor="let product of listProduct" class="cart-item">
-    <div class="product-image">
-      <img class="product-image" [src]="product?.imagen" alt="Sporogenex" />
+<div class="listaProductos z-20 font-sans w-full p-4 bg-white rounded-lg shadow-md overflow-auto max-h-full">
+  <div *ngFor="let product of listProduct" class="flex gap-4 mb-6 items-center">
+    <div class="flex-shrink-0">
+      <img class="w-24 h-24 object-cover rounded-md" [src]="product?.imagen" alt="Sporogenex" />
     </div>
-    <div class="product-details">
-      <h4>{{product?.Nombre}} </h4>
-      <p>$ {{product.Precio * product.Cantidad | number:'1.0-0'}} </p>
-      <div class="quantity-control">
-        <button (click)="decreaseQuantity(product)">-</button>
-        <input type="number" [value]="product?.Cantidad" />
-        <button (click)="increaseQuantity(product)">+</button>
+    <div class="flex-1 min-w-0">
+      <h4 class="text-lg font-semibold mb-1 truncate">{{ product?.Nombre }}</h4>
+      <p class="text-gray-700 font-medium">$ {{ product.Precio * product.Cantidad | number:'1.0-0' }}</p>
+      <div class="quantity-control flex items-center gap-3 mt-3">
+        <button (click)="decreaseQuantity(product)"
+          class="w-9 h-9 bg-orange-500 hover:bg-orange-600 transition-colors text-white rounded-md flex justify-center items-center cursor-pointer select-none text-xl font-bold"
+          aria-label="Disminuir cantidad">
+          –
+        </button>
+        <input type="number" [value]="product?.Cantidad"
+          class="w-14 text-center border border-gray-300 rounded-md py-1 focus:outline-none focus:ring-2 focus:ring-orange-400"
+          aria-label="Cantidad del producto" />
+        <button (click)="increaseQuantity(product)"
+          class="w-9 h-9 bg-orange-500 hover:bg-orange-600 transition-colors text-white rounded-md flex justify-center items-center cursor-pointer select-none text-xl font-bold"
+          aria-label="Aumentar cantidad">
+          +
+        </button>
       </div>
     </div>
   </div>
 
-  <div class="cart-footer">
-    <div class="total">
-      <p>TOTAL</p>
-      <h4> {{ this.ValorTotal | number:'1.0-0'}}</h4>
+  <div class="cart-footer mt-4 sticky bottom-0 bg-white pt-4">
+    <div class="total flex justify-between p-3 bg-gray-100 rounded-lg mb-4 shadow-inner">
+      <p class="font-semibold text-lg">TOTAL</p>
+      <h4 class="font-semibold text-lg">{{ this.ValorTotal | number:'1.0-0' }}</h4>
     </div>
-    <div class="actions">
-      <button (click)="vaciarCarro()" class="empty-cart">Vaciar cesta</button>
+    <div class="actions text-center mb-4">
+      <button (click)="vaciarCarro()"
+        class="empty-cart w-full py-3 bg-red-600 hover:bg-red-700 transition-colors text-white rounded-lg font-semibold">
+        Vaciar cesta
+      </button>
     </div>
-    <div class="checkout-buttons">
-      <button (click)="abrirCarrito()" class="checkout">Realizar Pedido</button>
-      <button (click)="continuarComprando()" class="continue-shopping">Continuar Comprando</button>
+    <div class="checkout-buttons flex gap-4">
+      <button (click)="abrirCarrito()"
+        class="checkout flex-1 py-3 text-base rounded-lg bg-orange-600 hover:bg-orange-700 transition-colors text-white font-semibold">
+        Realizar Pedido
+      </button>
+      <button (click)="continuarComprando()"
+        class="continue-shopping flex-1 py-3 text-base rounded-lg border border-orange-600 text-orange-600 hover:bg-orange-50 transition-colors font-semibold">
+        Continuar Comprando
+      </button>
     </div>
   </div>
 </div>

@@ -23,6 +23,8 @@ export class ListProductComponent {
   valorMinimo: number = 0
   isModalVisible: boolean = false;
   quantity: number = 1;
+  mostrarFiltros: boolean = false;
+
 
   constructor(
     private endPointServices: EndpointService,

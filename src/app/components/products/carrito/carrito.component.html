@@ -2,12 +2,12 @@
     <div class="selector">
         <p-steps [activeIndex]="active" [model]="items"></p-steps>
     </div>
-    
+
     <form class="form" [formGroup]="checkoutForm">
         <div class="container" *ngIf="active == 0 ">
             <section class="row">
                 <h3>Introduzca su información</h3>
-    
+
                 <div class="col-4 p-3">
                     <label for="email">Correo electrónico *</label>
                     <input id="email" type="email" formControlName="email" class="form-control" />
@@ -15,70 +15,72 @@
                         Por favor, ingrese un correo válido.
                     </div>
                 </div>
-    
+
                 <div class="col-4 p-3">
                     <label for="fullName">Nombre completo *</label>
                     <input id="fullName" type="text" formControlName="fullName" class="form-control" />
-    
+
                     <div *ngIf="checkoutForm.get('fullName')?.invalid && checkoutForm.get('fullName')?.touched"
                         class="error">
                         Este campo es obligatorio
                     </div>
                 </div>
-    
+
                 <div class="col-4 p-3">
                     <label for="tipoIdentificacion">Tipo de identificacion</label>
                     <select d="tipoIdentificacion" formControlName="tipoIdentificacion" class="form-control">
                         <option selected disabled> Seleccione</option>
                         <option *ngFor="let tipo of tipoIdentificacion" [value]="tipo.id"> {{tipo.tipo}} </option>
                     </select>
-    
+
                     <div *ngIf="checkoutForm.get('tipoIdentificacion')?.invalid && checkoutForm.get('tipoIdentificacion')?.touched"
                         class="error">
                         Este campo es obligatorio
                     </div>
                 </div>
-    
+
                 <div class="col-4 p-3">
                     <label for="numeroIdentificacion">Numero de identificacion</label>
-                    <input id="numeroIdentificacion" type="number" formControlName="numeroIdentificacion" class="form-control" />
-    
+                    <input id="numeroIdentificacion" type="number" formControlName="numeroIdentificacion"
+                        class="form-control" />
+
                     <div *ngIf="checkoutForm.get('numeroIdentificacion')?.invalid && checkoutForm.get('numeroIdentificacion')?.touched"
                         class="error">
                         Este campo es obligatorio
                     </div>
                 </div>
-    
+
                 <div class="col-4 p-3">
                     <label for="department">Departamento *</label>
                     <select id="department" formControlName="department" class="form-control">
-                        <option  selected value="cali"> Cali</option>
+                        <option selected value="cali"> Cali</option>
                     </select>
-    
+
                     <div *ngIf="checkoutForm.get('department')?.invalid && checkoutForm.get('department')?.touched"
                         class="error">
                         Este campo es obligatorio
                     </div>
                 </div>
-    
+
                 <div class="col-4 p-3">
                     <label for="phone">Teléfono *</label>
                     <input id="phone" type="number" formControlName="phone" class="form-control" />
-    
+
                     <div *ngIf="checkoutForm.get('phone')?.invalid && checkoutForm.get('phone')?.touched" class="error">
                         Este campo es obligatorio
                     </div>
                 </div>
-    
+
                 <div class="col-8 p-3">
                     <label for="address">Dirección *</label>
                     <input id="address" type="text" formControlName="address" class="form-control" />
-    
-                    <div *ngIf="checkoutForm.get('address')?.invalid && checkoutForm.get('address')?.touched" class="error">
+
+                    <div *ngIf="checkoutForm.get('address')?.invalid && checkoutForm.get('address')?.touched"
+                        class="error">
                         Este campo es obligatorio
                     </div>
                 </div>
-    
+
                 <div class="col-6 p-3">
                     <input id="subscribe" type="checkbox" formControlName="subscribe" class="form-check-input" />
                     <label for="subscribe" class="form-check-label">
@@ -86,7 +88,7 @@
                     </label>
                 </div>
             </section>
-    
+
             <section class="row">
                 <button class="btn btn-outline-success" (click)="active = 1" [disabled]="this.f['email'].errors || 
                             this.f['fullName'].errors ||
@@ -96,9 +98,9 @@
                             this.f['tipoIdentificacion'].errors ||
                             this.f['phone'].errors ">SIGUIENTE</button>
             </section>
-    
+
         </div>
-    
+
         <div class="container" *ngIf="active == 1 ">
             <section class="row">
                 <div class="delivery-info-container">
@@ -112,8 +114,8 @@
                             <div class="delivery-details">
                                 <div class="delivery-choice row" *ngFor="let dia of daysOfWeek">
                                     <div class="col-6">
-                                        <input type="radio" [disabled]="!dia.valida" (change)="DiaEnvio($event)" value=" {{dia.dia}} - {{dia.fecha}}  " id="option1"
-                                            name="delivery" />
+                                        <input type="radio" [disabled]="!dia.valida" (change)="DiaEnvio($event)"
+                                            value=" {{dia.dia}} - {{dia.fecha}}  " id="option1" name="delivery" />
                                         <label for="option1">
                                             {{dia.dia }} - {{dia.fecha}}
                                         </label>
@@ -127,14 +129,14 @@
                             </div>
                         </div>
                     </div>
-                    <p class="envGratis"> Envio gratis el dia {{FechaEnvioGratis}}  </p>
+                    <p class="envGratis"> Envio gratis el dia {{FechaEnvioGratis}} </p>
                     <div class="delivery-summary">
                         <p>Envío</p>
                         <p class="total-price">${{valorEnvio | number:'1.0-0' }}</p>
                     </div>
                 </div>
             </section>
-    
+
             <section class="row">
                 <div class="col-6 p-3">
                     <button class="btn btn-outline-secondary" [disabled]="false" (click)="active = 0">ANTERIOR</button>
@@ -146,7 +148,7 @@
             </section>
         </div>
     </form>
-    
+
     <div class="container" *ngIf="active == 2 ">
         <button class="btn-outline-light" (click)="this.active = 1"><i class="pi pi-arrow-left"></i> </button>
         <section class="row">
@@ -164,10 +166,10 @@
                             </div>
                         </div>
                     </div>
-                </div> 
-    
-    
-                 <div class="order-summary">
+                </div>
+
+
+                <div class="order-summary">
                     <div class="summary-item">
                         <span>Valor Compra:</span>
                         <span>${{ValorTotal | number:'1.0-0' }}</span>
